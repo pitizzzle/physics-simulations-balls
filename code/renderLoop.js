@@ -16,18 +16,18 @@
 function renderLoop(
     {
         dt_perFrame = 1000 / 60,  // the size of this is kind of arbitrary, it just has to be in right proportion to the other units!  // we choose '1000/60' because then the time elapsed will resemble the time elapsed in reality in milliseconds (which is not relevant, but hey! xD)
-        subSteps = 20,
+        subSteps_perFrame = 20,
         speedFactor = 1,
     },
     callback
 ) {
 
-    const dt_perStep = dt_perFrame / subSteps;
-    subSteps *= speedFactor;  // we apply 'speedFactor' to the number of steps (instead of to the dt of the steps), because if we changed the dt of the steps the accuracy of the simulation would be change
+    const dt_perStep = dt_perFrame / subSteps_perFrame;
+    subSteps_perFrame *= speedFactor;  // we apply 'speedFactor' to the number of steps (instead of to the dt of the steps), because if we changed the dt of the steps the accuracy of the simulation would be change
 
     _loop();
     function _loop() {
-        for (let i = 1; i <= subSteps; i++) {
+        for (let i = 1; i <= subSteps_perFrame; i++) {
             callback(dt_perStep);
         }
         requestAnimationFrame(_loop);

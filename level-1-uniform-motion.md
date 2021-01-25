@@ -38,5 +38,6 @@ renderLoop(function (dt) {
 
 ## working example
 
-+ [code]
-+ [fiddle]
+||||
+| --- | --- | --- |
+| Code | [Code Live](code/level-1-uniform-motion.html)<br><a href="code/level-1-uniform-motion.html" target="_blank">Live Example</a> | Code Fiddle |

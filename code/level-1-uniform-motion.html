@@ -9,5 +9,23 @@
 
         <script src="canvas.js"></script>
         <script src="renderLoop.js"></script>
+        <script>
+            const ball = {
+                x: 0,
+                y: 0,
+                vx: 0.1,
+                vy: 0.2,
+            };
+
+            renderLoop({}, function (dt) {
+                // update
+                ball.x += dt * ball.vx;
+                ball.y += dt * ball.vy;
+
+                // render
+                canvas.clear();
+                canvas.fillCircle(ball.x, ball.y, 28, 'red');
+            });
+        </script>
     </body>
 </html>
