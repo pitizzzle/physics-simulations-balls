@@ -1,7 +1,3 @@
----
-title-heading: nil
----
-
 ## time steps
 + Why time steps?
   - If we have a single moving object, like a ball accelerating downards due to gravity, we could deterministically compute its values (like position and velocity) at any given point in time
