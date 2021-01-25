@@ -40,4 +40,4 @@ renderLoop(function (dt) {
 
 ||||
 | --- | --- | --- |
-| Code | [Code Live](code/level-1-uniform-motion.html)<br><a href="code/level-1-uniform-motion.html" target="_blank">Live Example</a> | Code Fiddle |
+| [Code](https://github.com/pitizzzle/physics-simulations-balls/blob/main/code/level-1-uniform-motion.html) | [Code Live](https://pitizzzle.github.io/physics-simulations-balls/code/level-1-uniform-motion.html) | [Code Fiddle](https://jsfiddle.net/pitizzzle/tozgs1c5/2/) |
