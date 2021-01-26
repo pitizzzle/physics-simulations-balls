@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Level 1 - Uniform Motion (physics-simulations-balls)</title>
+        <link rel="stylesheet" href="_style.css">
     </head>
     <body>
         <canvas></canvas>
 
-        <script src="canvas.js"></script>
-        <script src="renderLoop.js"></script>
+        <script src="_canvas.js"></script>
+        <script src="_timingManager.js"></script>
         <script>
+
             const ball = {
                 x: 0,
                 y: 0,
-                vx: 0.1,
-                vy: 0.2,
+                vx: 1.5,
+                vy: 3.0,
             };
 
-            renderLoop({}, function (dt) {
-                // update
-                ball.x += dt * ball.vx;
-                ball.y += dt * ball.vy;
+            configureTimingManager({
 
-                // render
-                canvas.clear();
-                canvas.fillCircle(ball.x, ball.y, 28, 'red');
+                callback_simulateOneStep: function (dt) {
+                    ball.x += dt * ball.vx;
+                    ball.y += dt * ball.vy;
+                },
+
+                callback_renderFrame: function () {
+                    canvas.clear();
+                    canvas.fillCircle(ball.x, ball.y, 28, 'red');
+                },
+
             });
+
         </script>
     </body>
 </html>

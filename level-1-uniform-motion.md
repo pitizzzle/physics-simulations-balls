@@ -28,10 +28,10 @@ const ball = {
     vy: 2,
 };
 
-renderLoop(function (dt) {
+function simulateOneStep(dt) {
     ball.x += dt * ball.vx;
     ball.y += dt * ball.vy;
-});
+}
 ```
 
 <br>

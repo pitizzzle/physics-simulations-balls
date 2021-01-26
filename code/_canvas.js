@@ -13,10 +13,7 @@ const canvas = {
 };
 
 
-// === canvas CSS styling and resolution ===
-canvas.el.style.position = 'fixed';
-canvas.el.style.top = '0';
-canvas.el.style.left = '0';
+// === canvas resolution and CSS width+height ===
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 function resizeCanvas() {
@@ -33,7 +30,6 @@ canvas.ctx = canvas.el.getContext('2d');
 
 
 /**
- * 
  * @param {Object} [options]
  * @param {boolean} [options.translucent] preserve old frames with lower opacity
  */
