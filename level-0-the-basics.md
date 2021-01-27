@@ -20,6 +20,22 @@
 <br><br>
 
 
+
+## update rules
++ To perform a time step, we apply certain update rules.
++ A critical characteristic is, that update rules are (in contrast to the underlying laws of physics !!) not right or wrong. All update rules are only approximations, or "styles" you could say.
++ Update rule sets differ in ..
+  - complexity (less is better) ..
+  - and accuracy/realism (more is better).
++ The accuracy and realism of a set of update rules depends on the concrete circumstances in your simulation.
+  - See "Level 3 - Wall Collisions Deterministic" as a good example for that. Especially if you compare with "XXXXXX" (Level 6? averaged velocities for spring collisions)
++ So you have to assess which update rules are best suited for your simulation. It's not always that easy.
+  - Either you go the theoretical path, trying to figure out on paper which appromixations are most accurate, ..
+  - or you go the practical path, simply piting different update rule sets against each other and comparing their results (which is often easier and faster, but may leave some insights undiscovered).
+
+<br><br>
+
+
 ## dimensions, coordinate system
 + We stick to 2D simulations.
   - They are a lot easier than 3D simulations but make almost the same amount of fun, because our screens are flat anyway.
