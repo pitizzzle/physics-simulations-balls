@@ -39,7 +39,7 @@
 ## dimensions, coordinate system
 + We stick to 2D simulations.
   - They are a lot easier than 3D simulations but make almost the same amount of fun, because our screens are flat anyway.
-+ So we have the $x$ and the $y$ dimension in an cartesian coordinate system.
++ So we have the $x$ and the $y$ dimension in a cartesian coordinate system.
   - .... [image of the coordinate system]
 + basically all the balls' values become vectors, meaning they're split up in their respective $x$ and $y$ components
   - .... [formulas of split up components]
