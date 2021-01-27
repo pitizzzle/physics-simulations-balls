@@ -1,5 +1,5 @@
 ## goal
-+ Have an initially stationary ball accelerate by simulating the push of a random but constant force (like a gravity force).
++ Let an initially stationary ball accelerate by simulating the push of a random but constant force (like a gravity force).
 
 <br>
 

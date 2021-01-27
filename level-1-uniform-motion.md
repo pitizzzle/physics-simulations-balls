@@ -1,5 +1,5 @@
 ## goal
-+ move the ball uniformly in an arbitrary direction
++ Move the ball uniformly in an arbitrary direction.
 
 <br>
 
@@ -12,8 +12,8 @@ v_y = const.
 $$
 $$
 \begin{aligned}
-\text{time step: { }{ }{ } } dx &= dt * v_x \\
-dy &= dt * v_y
+\text{time step: { }{ }{ } } dx &= dt \cdot v_x \\
+dy &= dt \cdot v_y
 \end{aligned}
 $$
 
@@ -24,13 +24,13 @@ $$
 const ball = {
     x: 0,
     y: 0,
-    vx: 1,
-    vy: 2,
+    v_x: 1,
+    v_y: 2,
 };
 
 function simulateOneStep(dt) {
-    ball.x += dt * ball.vx;
-    ball.y += dt * ball.vy;
+    ball.x += dt * ball.v_x;
+    ball.y += dt * ball.v_y;
 }
 ```
 
