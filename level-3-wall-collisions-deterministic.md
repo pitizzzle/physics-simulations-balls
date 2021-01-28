@@ -79,11 +79,11 @@ $$
 
 $$
 \begin{aligned}
-v'_x =
+v''_x =
 \begin{cases}
-    + \left| v_x \right|, & \text{if}\:\:\: x-r \lt 0\\
-    - \left| v_x \right|, & \text{if}\:\:\: x+r \gt w\\
-    v_x,               & \text{otherwise}
+    + \left| v'_x \right|, & \text{if}\:\:\: x-r \lt 0\\
+    - \left| v'_x \right|, & \text{if}\:\:\: x+r \gt w\\
+    v'_x,               & \text{otherwise}
 \end{cases}\\[24pt]
 \end{aligned}
 $$
@@ -94,11 +94,11 @@ $$
 
 $$
 \begin{aligned}
-v'_y =
+v''_y =
 \begin{cases}
-    + \left| v_y \right|, & \text{if}\:\:\: y-r \lt 0\\
-    - \left| v_y \right|, & \text{if}\:\:\: y+r \gt h\\
-    v_y,               & \text{otherwise}
+    + \left| v'_y \right|, & \text{if}\:\:\: y-r \lt 0\\
+    - \left| v'_y \right|, & \text{if}\:\:\: y+r \gt h\\
+    v'_y,               & \text{otherwise}
 \end{cases}
 \end{aligned}
 $$
@@ -169,7 +169,7 @@ v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new position -- using the average velocity)}
+\text{\small\color{gray} (update position -- using the average velocity)}
 $$
 
 $$
