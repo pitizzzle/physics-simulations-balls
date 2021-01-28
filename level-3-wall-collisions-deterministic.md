@@ -26,7 +26,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (new force, which is constant during the time step)}
+\text{\small\color{gray} (update the force -- will be constant for this time step)}
 $$
 
 $$
@@ -37,7 +37,7 @@ F_y &= m \cdot g\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new acceleration, which is constant during the time step)}
+\text{\small\color{gray} (update the acceleration -- will be constant for this time step)}
 $$
 
 $$
@@ -48,24 +48,24 @@ a_y &= \frac{F_y}{m}\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new velocity, which is constant during the time step)}
+\text{\small\color{gray} (update the velocity -- will be constant for this time step)}
 $$
 
 $$
 \begin{aligned}
-dv_x &= dt \cdot a_x\\
-dv_y &= dt \cdot a_y\\[8pt]
+v'_x &= v_x + dv_x  &  &\leftarrow  &  dv_x &= dt \cdot a_x\\
+v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
 \end{aligned}
 $$
 
 $$
-\text{\small\color{gray} (new position)}
+\text{\small\color{gray} (update the position)}
 $$
 
 $$
 \begin{aligned}
-dx &= dt \cdot v_x\\
-dy &= dt \cdot v_y\\[8pt]
+x'&= x + dx  &  &\leftarrow  &  dx&= dt \cdot v'_x\\
+y'&= y + dy  &  &\leftarrow  &  dy&= dt \cdot v'_y\\[8pt]
 \end{aligned}
 $$
 
@@ -137,24 +137,72 @@ function simulateOneStep(dt) {
 ## the problem
 + You will notice, that using the update rules above, the ball jumps lower with every bounce off the ground.
 + It's true that simulating motion in discrete time steps is just an approximation, and therefore not 100% accurate. But normally, you don't actually see the inaccuracy this drastically, because the errors resulting in lower-than-reality speeds balance out with errors resulting in higher-than-reality speeds. If you see that errors constructively accumulate, like that the ball is jumping lower and lower, you know that there must be a systematic flaw in your simulation rules.
++ In this special case here (gravity force and deterministic collision detection), our update rules are suboptimal. We treat the new velocity (for the state AFTER the time step) as the average velocity DURING the step. This conflicts with simply reversing the direction of velocity on collisions.
 + By looking at a simplified example we can figure it out.
-+ Simply reversing the direction of the velocity does not work well together with our time step equations which treat the new velocity (for the state AFTER the step) as the average velocity DURING the step.
-+ [IMAGE]
++ ![level-3-simplified-diagram-(1)](img/level-3-simplified-diagram-(1).jpg)
 + This is the reason why the ball loses velocity systematically.
-+ The solution? For these specific update rules we have to adapt our update rules. The problem is solved by applying the ACTUAL average velocity for each time step, instead of treating the new velocity (for the state after the time step) as the average velocity during the time step.
-+ [IMAGE]
++ The solution? Let's apply the ACTUAL average velocity for each time step, instead of treating the new velocity (for the state after the time step) as the average velocity during the time step.
++ ![level-3-simplified-diagram-(2)](img/level-3-simplified-diagram-(2).jpg)
 
 <br>
 
 
-## equations <small>(using average velocity)</small>
-...
+## equations <small>(using average velocity) (only what changed)</small>
+$$
+\text{--------- time step ---------}
+$$
+
+$$
+\text{\small\color{gray} (update the velocity -- will NOT be constant for this time step)}
+$$
+
+$$
+\begin{aligned}
+v'_x &= v_x + dv_x  &  &\leftarrow  &  dv_x &= dt \cdot a_x\\
+v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
+\end{aligned}
+$$
+
+$$
+\text{\small\color{gray} (new position -- using the average velocity)}
+$$
+
+$$
+\begin{aligned}
+x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \frac{v_x + v'_x}{2}\\[8pt]
+y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \frac{v_y + v'_y}{2}\\[8pt]
+\end{aligned}
+$$
 
 <br>
 
 
 ## code <small>(using average velocity)</small>
-...
+```js
+const ball = {
+    x: 0.5 * canvas.w,  // horizontally centered
+    y: 0.2 * canvas.h,  // at the top
+    v_x: 0,  // initially stationary
+    v_y: 0,  //
+    m: 1,
+    r: 15,
+};
+
+const g = 0.5;  // gravity constant
+
+function simulateOneStep(dt) {
+    const F_x = 0;
+    const F_y = ball.m * g;
+    const a_x = F_x / ball.m;
+    const a_y = F_y / ball.m;
+    const v_x_old = ball.v_x;
+    const v_y_old = ball.v_y;
+    ball.v_x += dt * a_x;
+    ball.v_y += dt * a_y;
+    ball.x += dt * 0.5 * (v_x_old + ball.v_x);
+    ball.y += dt * 0.5 * (v_y_old + ball.v_y);
+}
+```
 
 <br>
 
