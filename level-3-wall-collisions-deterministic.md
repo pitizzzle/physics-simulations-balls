@@ -147,6 +147,8 @@ function simulateOneStep(dt) {
 
 <div align="center"><img src="img/level-3-simplified-diagram-(2).jpg" width="440" alt="level-3-simplified-diagram-(2)" /></div>
 
++ As you can see, the ball jumps up again to the same height it initially started with. Symmetry successfully restored.
+
 <br>
 
 
@@ -196,12 +198,15 @@ const g = 0.5;  // gravity constant
 function simulateOneStep(dt) {
     const F_x = 0;
     const F_y = ball.m * g;
+
     const a_x = F_x / ball.m;
     const a_y = F_y / ball.m;
+    
     const v_x_old = ball.v_x;
     const v_y_old = ball.v_y;
     ball.v_x += dt * a_x;
     ball.v_y += dt * a_y;
+    
     ball.x += dt * 0.5 * (v_x_old + ball.v_x);
     ball.y += dt * 0.5 * (v_y_old + ball.v_y);
 }
