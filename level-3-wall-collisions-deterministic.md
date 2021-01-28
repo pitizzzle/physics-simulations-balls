@@ -139,10 +139,13 @@ function simulateOneStep(dt) {
 + It's true that simulating motion in discrete time steps is just an approximation, and therefore not 100% accurate. But normally, you don't actually see the inaccuracy this drastically, because the errors resulting in lower-than-reality speeds balance out with errors resulting in higher-than-reality speeds. If you see that errors constructively accumulate, like that the ball is jumping lower and lower, you know that there must be a systematic flaw in your simulation rules.
 + In this special case here (gravity force and deterministic collision detection), our update rules are suboptimal. We treat the new velocity (for the state AFTER the time step) as the average velocity DURING the step. This conflicts with simply reversing the direction of velocity on collisions.
 + By looking at a simplified example we can figure it out.
-+ ![level-3-simplified-diagram-(1)](img/level-3-simplified-diagram-(1).jpg)
+
+<div align="center"><img src="img/level-3-simplified-diagram-(1).jpg" width="500" alt="level-3-simplified-diagram-(1)" /></div>
+
 + This is the reason why the ball loses velocity systematically.
 + The solution? Let's apply the ACTUAL average velocity for each time step, instead of treating the new velocity (for the state after the time step) as the average velocity during the time step.
-+ ![level-3-simplified-diagram-(2)](img/level-3-simplified-diagram-(2).jpg)
+
+<div align="center"><img src="img/level-3-simplified-diagram-(2).jpg" width="500" alt="level-3-simplified-diagram-(2)" /></div>
 
 <br>
 
