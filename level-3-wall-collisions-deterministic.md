@@ -145,7 +145,7 @@ function simulateOneStep(dt) {
 + This is the reason why the ball loses velocity systematically.
 + The solution? Let's apply the ACTUAL average velocity for each time step, instead of treating the new velocity (for the state after the time step) as the average velocity during the time step.
 
-<div align="center"><img src="img/level-3-simplified-diagram-(2).jpg" width="500" alt="level-3-simplified-diagram-(2)" /></div>
+<div align="center"><img src="img/level-3-simplified-diagram-(2).jpg" width="440" alt="level-3-simplified-diagram-(2)" /></div>
 
 <br>
 
