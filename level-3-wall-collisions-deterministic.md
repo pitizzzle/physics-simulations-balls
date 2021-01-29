@@ -198,25 +198,12 @@ $$
 <br>
 
 
-## code <small>(using average velocity)</small>
+## code <small>(using average velocity) (only what changed)</small>
 ```js
-const ball = {
-    x: 0.5 * canvas.w,  // horizontally centered
-    y: 0.2 * canvas.h,  // at the top
-    v_x: 0,  // initially stationary
-    v_y: 0,  //
-    m: 1,
-    r: 15,
-};
-
-const g = 0.5;  // gravity constant
+// ...
 
 function simulateOneStep(dt) {
-    const F_x = 0;
-    const F_y = ball.m * g;
-
-    const a_x = F_x / ball.m;
-    const a_y = F_y / ball.m;
+    // ...
     
     const v_x_old = ball.v_x;
     const v_y_old = ball.v_y;
@@ -226,18 +213,7 @@ function simulateOneStep(dt) {
     ball.x += dt * 0.5 * (v_x_old + ball.v_x);
     ball.y += dt * 0.5 * (v_y_old + ball.v_y);
 
-    if (ball.x - ball.r < 0) {
-        ball.vx = Math.abs(ball.vx);
-    }
-    if (ball.x + ball.r - w > 0) {
-        ball.vx = - Math.abs(ball.vx);
-    }
-    if (ball.y - ball.r < 0) {
-        ball.vy = Math.abs(ball.vy);
-    }
-    if (ball.y + ball.r - h > 0) {
-        ball.vy = - Math.abs(ball.vy);
-    }
+    // ...
 }
 ```
 
