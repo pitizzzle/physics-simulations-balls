@@ -9,9 +9,9 @@
 
 
 ## equations
-+ info:
++ side notes:
   - We don't have any forces involved here. All balls simply have velocities, masses, and radii, and balls collide, the new velocities are computed. No forces.
-  - Because we have no (constant) forces involved here, we don't need to use the average velocities for each time step anymore. Think about it – the problem with the ball loosing height was tightly coupled to the gravity force.
+  - Because we have no (constant) forces involved here, we don't need to use the average velocities for each time step anymore. Think about it – the problem with the ball loosing height was tightly coupled to presence of the gravity force.
 
 <br>
 
@@ -84,7 +84,7 @@ $$
 $$
 \begin{gathered}
 \vec{v}_i = \begin{pmatrix}v_{x,i}\\ v_{y,i}\end{pmatrix} \hspace{16pt} \vec{v}_j = \begin{pmatrix}v_{x,j}\\ v_{y,j}\end{pmatrix} \\[14pt]
-\vec{a} = \frac{1}{\vec{d}} \cdot \vec{d}
+\vec{a} = \frac{1}{|\,\vec{d}\:|} \cdot \vec{d}
 \end{gathered}
 $$
 
@@ -158,37 +158,192 @@ $$
 ```js
 const balls = [
     {
-        x: 0.5 * canvas.w,  // horizontally centered
-        y: 0.2 * canvas.h,  // at the top
-        v_x: 0,  // initially stationary
-        v_y: 0,  //
+        x: 30,  // at the left
+        y: 0.5 * canvas.h,  // vertically centered
+        v_x: 10,  // moving straight to the right // XXX
+        v_y: 0,   //
         m: 1,
         r: 15,
-        color: 'XXX',
+        color: '#E91E63',
     },
     {
-        x: 0.5 * canvas.w,  // horizontally centered
-        y: 0.2 * canvas.h,  // at the top
+        x: canvas.w - 50,  // at the right
+        y: 0.5 * canvas.h,  // vertically centered
         v_x: 0,  // initially stationary
         v_y: 0,  //
         m: 1,
         r: 15,
-        color: 'XXX',
+        color: '#00BCD4',
     },
+
     // ...
+
 ];
 
 
 function simulateOneStep(dt) {
-    // ...
+
+    ball.x += dt * ball.v_x;
+    ball.y += dt * ball.v_y;
+
+    forEachPair(balls, (i, j) => {
+
+        const p_i = [i.x, i.y];
+        const p_j = [j.x, j.y];
+
+        const d = Vector.subtract(p_j, p_i);
+
+        if (Vector.norm(d) < i.r + j.r) {
+
+            const v_i = [i.v_x, i.v_y];
+            const v_j = [j.v_x, j.v_y];
+
+            const a = Vector.normalize(d);
+
+            const v_ia_value = Vector.dotProduct(a, v_i);
+            const v_ja_value = Vector.dotProduct(a, v_j);
+
+            const v_ia = Vector.scale(a, v_ia_value);
+            const v_ja = Vector.scale(a, v_ja_value);
+
+            const v_ib = Vector.subtract(v_i, v_ia);
+            const v_jb = Vector.subtract(v_j, v_ja);
+
+            const vˈ_ia_value = (
+                v_ia_value * (i.m -j.m) + 2 * j.m * v_ja_value
+            ) / (
+                i.m + j.m
+            );
+            const vˈ_ja_value = (
+                v_ja_value * (j.m -i.m) + 2 * i.m * v_ia_value
+            ) / (
+                i.m + j.m
+            );
+
+            const vˈ_ia = Vector.scale(a, vˈ_ia_value);
+            const vˈ_ja = Vector.scale(a, vˈ_ja_value);
+
+            const vˈ_ib = v_ib;
+            const vˈ_jb = v_jb;
+
+            const vˈ_i = Vector.add(vˈ_ia, vˈ_ib);
+            const vˈ_j = Vector.add(vˈ_ja, vˈ_jb);
+
+            [i.v_x, i.v_y] = vˈ_i;
+            [j.v_x, j.v_y] = vˈ_j;
+        }
+    });
+
+    for (let ball of balls) {
+        if (ball.x - ball.r < 0) {
+            ball.vx = Math.abs(ball.vx);
+        }
+        if (ball.x + ball.r - w > 0) {
+            ball.vx = - Math.abs(ball.vx);
+        }
+        if (ball.y - ball.r < 0) {
+            ball.vy = Math.abs(ball.vy);
+        }
+        if (ball.y + ball.r - h > 0) {
+            ball.vy = - Math.abs(ball.vy);
+        }
+    }
+}
+
+function forEachPair(array, callback) {
+    for (let i = 0; i < array.length; i++) {  // loop every item
+        for (let j = i + 1; j < array.length; j++) { // loop every item after the current item
+            callback(array[i], array[j], i, j);
+        }
+    }
 }
 ```
 
 <br>
 
 
-## the problem
-+ ...
+## two problems
++ (1) Collisions of multiple balls at once are not very accurate.
+  - [SMALL GIF]
+  - Reason: In our simulation, we process collision sequentially (one after another). "The Last Collision Wins" you could say. This explains why the balls aren't moving symmetrically right from the start.
+  - Weakening Factor: Normally, we wouldn't recognize that the collisions should have lead to different results, because the balls are moving so fast that it is plausible they collided after each other and not simulatenously. Everything looks fine. Only in special cases, like the kickoff at the start, the inaccuracy stands out, because we know the balls should actually move symmetrically.
+
++ (2) Glitcheees <3
+  - [SMALL GIF]
+  - Reason: If multiple balls collide in a dense bulk, then the "The Last Collision Wins" rule can push two balls (that would normally bounce off each other) deep into each other. If then the outer balls retract, the two inner balls keep sticking in each other, because in each time step they collide again and again, moving away from each other in one step and then closer again in the next, because they are overlapping all the time, and this triggers our collision condition.
+  - Solution: We can simply extend our collision condition, to not only check whether the balls are overlapping, but also whether the balls are actually moving towards each other xD.
+
+<br>
+
+## equations <small>(with glitch prevention) (only what changed)</small>
+$$
+\text{--------- ball-ball collisions ---------}
+$$
+
+$$
+\text{\small\color{gray} (for every pair of balls, i and j, ...)}
+$$
+
+$$
+\begin{gathered}
+\vec{p}_i = \begin{pmatrix}x_i\\ y_i\end{pmatrix} \hspace{16pt} \vec{p}_j = \begin{pmatrix}x_j\\ y_j\end{pmatrix} \\[14pt]
+\vec{d} = \vec{p}_{\hspace{.5pt}j} - \vec{p}_{\hspace{.5pt}i}\\[8pt]
+\vec{a} = \frac{1}{|\,\vec{d}\:|} \cdot \vec{d}
+\end{gathered}
+$$
+
+$$
+\begin{aligned}
+\vec{v}_i &= \begin{pmatrix}v_{x,i}\\ v_{y,i}\end{pmatrix}  &\hspace{16pt} \vec{v}_j &= \begin{pmatrix}v_{x,j}\\ v_{y,j}\end{pmatrix} \\[14pt]
+v_{i,a} &= \vec{a} \:\circ \vec{v}_i & v_{j,a} &= \vec{a} \:\circ \vec{v}_j\\[14pt]
+\end{aligned}
+$$
+
+$$
+\begin{gathered}
+\text{collision condition:\hspace{12pt}} |\,\vec{d}\:| < r_i + r_j \quad\wedge\quad v_{i,a} > v_{j,a}\\[16pt]
+\end{gathered}
+$$
+
+<br>
+
+
+
+## code <small>(with glitch prevention) (only what changed)</small>
+```js
+// ...
+
+function simulateOneStep(dt) {
+
+    // ...
+    
+    forEachPair(balls, (i, j) => {
+
+        const p_i = [i.x, i.y];
+        const p_j = [j.x, j.y];
+
+        const d = Vector.subtract(p_j, p_i);
+
+        const a = Vector.normalize(d);
+
+        const v_i = [i.v_x, i.v_y];
+        const v_j = [j.v_x, j.v_y];
+
+        const v_ia_value = Vector.dotProduct(a, v_i);
+        const v_ja_value = Vector.dotProduct(a, v_j);
+
+        if (
+            (Vector.norm(d) < i.r + j.r) &&
+            (v_ia_value > v_ja_value)
+        ) {
+
+            // ...
+        }
+    });
+
+    // ...
+}
+```
 
 <br>
 
