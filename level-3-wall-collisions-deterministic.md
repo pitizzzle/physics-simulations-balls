@@ -122,12 +122,28 @@ const g = 0.5;  // gravity constant
 function simulateOneStep(dt) {
     const F_x = 0;
     const F_y = ball.m * g;
+
     const a_x = F_x / ball.m;
     const a_y = F_y / ball.m;
+    
     ball.v_x += dt * a_x;
     ball.v_y += dt * a_y;
+
     ball.x += dt * ball.v_x;
     ball.y += dt * ball.v_y;
+
+    if (ball.x - ball.r < 0) {
+        ball.vx = Math.abs(ball.vx);
+    }
+    if (ball.x + ball.r - w > 0) {
+        ball.vx = - Math.abs(ball.vx);
+    }
+    if (ball.y - ball.r < 0) {
+        ball.vy = Math.abs(ball.vy);
+    }
+    if (ball.y + ball.r - h > 0) {
+        ball.vy = - Math.abs(ball.vy);
+    }
 }
 ```
 
@@ -209,6 +225,19 @@ function simulateOneStep(dt) {
     
     ball.x += dt * 0.5 * (v_x_old + ball.v_x);
     ball.y += dt * 0.5 * (v_y_old + ball.v_y);
+
+    if (ball.x - ball.r < 0) {
+        ball.vx = Math.abs(ball.vx);
+    }
+    if (ball.x + ball.r - w > 0) {
+        ball.vx = - Math.abs(ball.vx);
+    }
+    if (ball.y - ball.r < 0) {
+        ball.vy = Math.abs(ball.vy);
+    }
+    if (ball.y + ball.r - h > 0) {
+        ball.vy = - Math.abs(ball.vy);
+    }
 }
 ```
 
