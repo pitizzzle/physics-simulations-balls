@@ -17,10 +17,10 @@ const canvas = {
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
 function resizeCanvas() {
-    canvas.el.style.width = `${w = window.innerWidth}px`;   // the canvas size as an Element on the page (uses CSS pixels of course)
-    canvas.el.style.height = `${h = window.innerHeight}px`; //
-    canvas.el.width = w * window.devicePixelRatio;   // the pixel resolution of the canvas
-    canvas.el.height = h * window.devicePixelRatio;  //
+    canvas.el.style.width = `${canvas.w = window.innerWidth}px`;   // the canvas size as an Element on the page (uses CSS pixels of course)
+    canvas.el.style.height = `${canvas.h = window.innerHeight}px`; //
+    canvas.el.width = canvas.w * window.devicePixelRatio;   // the pixel resolution of the canvas
+    canvas.el.height = canvas.h * window.devicePixelRatio;  //
 }
 
 
