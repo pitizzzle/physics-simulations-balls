@@ -129,11 +129,10 @@ $$
 $$
 \begin{aligned}
 v''_x =
-\begin{cases}
-    + \left| v'_x \right|, & \text{if}\:\:\: x-r \lt 0\\
-    - \left| v'_x \right|, & \text{if}\:\:\: x+r \gt w\\
-    v'_x,               & \text{otherwise}
-\end{cases}\\[24pt]
+    \begin{cases}
+        - v'_x, & \text{if}\quad x \lt r \;\;\vee\;\; w-r \lt x\\
+        v'_x, & \text{otherwise}
+    \end{cases}\\[24pt]
 \end{aligned}
 $$
 
@@ -144,15 +143,17 @@ $$
 $$
 \begin{aligned}
 v''_y =
-\begin{cases}
-    + \left| v'_y \right|, & \text{if}\:\:\: y-r \lt 0\\
-    - \left| v'_y \right|, & \text{if}\:\:\: y+r \gt h\\
-    v'_y,               & \text{otherwise}
-\end{cases}
+    \begin{cases}
+        - v'_y, & \text{if}\quad y \lt r \;\;\vee\;\; h-r \lt y\\
+        v'_y, & \text{otherwise}
+    \end{cases}
 \end{aligned}
 $$
 
 <br>
+
+
+
 
 ## code
 ```js
@@ -183,8 +184,10 @@ const balls = [
 
 function simulateOneStep(dt) {
 
-    ball.x += dt * ball.v_x;
-    ball.y += dt * ball.v_y;
+    for (let ball of balls) {
+        ball.x += dt * ball.v_x;
+        ball.y += dt * ball.v_y;
+    }
 
     forEachPair(balls, (i, j) => {
 
@@ -235,17 +238,11 @@ function simulateOneStep(dt) {
     });
 
     for (let ball of balls) {
-        if (ball.x - ball.r < 0) {
-            ball.vx = Math.abs(ball.vx);
+        if (ball.x < ball.r || canvas.w - ball.r < ball.x) {
+            ball.v_x *= -1;
         }
-        if (ball.x + ball.r - w > 0) {
-            ball.vx = - Math.abs(ball.vx);
-        }
-        if (ball.y - ball.r < 0) {
-            ball.vy = Math.abs(ball.vy);
-        }
-        if (ball.y + ball.r - h > 0) {
-            ball.vy = - Math.abs(ball.vy);
+        if (ball.y < ball.r || canvas.h - ball.r < ball.y) {
+            ball.v_y *= -1;
         }
     }
 }
@@ -262,18 +259,29 @@ function forEachPair(array, callback) {
 <br>
 
 
-## two problems
-+ (1) Collisions of multiple balls at once are not very accurate.
-  - [SMALL GIF]
-  - Reason: In our simulation, we process collision sequentially (one after another). "The Last Collision Wins" you could say. This explains why the balls aren't moving symmetrically right from the start.
-  - Weakening Factor: Normally, we wouldn't recognize that the collisions should have lead to different results, because the balls are moving so fast that it is plausible they collided after each other and not simulatenously. Everything looks fine. Only in special cases, like the kickoff at the start, the inaccuracy stands out, because we know the balls should actually move symmetrically.
 
-+ (2) Glitcheees <3
-  - [SMALL GIF]
-  - Reason: If multiple balls collide in a dense bulk, then the "The Last Collision Wins" rule can push two balls (that would normally bounce off each other) deep into each other. If then the outer balls retract, the two inner balls keep sticking in each other, because in each time step they collide again and again, moving away from each other in one step and then closer again in the next, because they are overlapping all the time, and this triggers our collision condition.
-  - Solution: We can simply extend our collision condition, to not only check whether the balls are overlapping, but also whether the balls are actually moving towards each other xD.
-
+## problems
++ Glitcheees <3
+  - [SMALL GIF, 411x210, 1subStep, vx 8]
++ Problem (1):
+  - Balls stick in each other and spin fast xD.
++ Reason (1):
+  - When multiple balls collide in a dense bulk, then the "The Last Collision Wins" rule can push two balls (that would normally bounce off each other) deep into each other (if the collisions with the other balls happen after the collision between the two balls).
+  - If then the outer balls retract, the two inner balls keep sticking in each other, because they repeatedly reflect away from each other and then towards each other again.This is because the collision condition is that both balls overlap, which keeps being true, because they were pushed so deep into each other that the step away from each other does not suffice to separate them.
+  - And the reason for the balls orbiting around each other is that in an oblique collision the velocity perpendicular to the line of centers is preserved, while the velocity along the line of centers keeps switching direction (cancels out).
++ Solution (1):
+  - We can simply extend our ball-ball collision condition, to not only check whether the balls are overlapping, but also whether the balls are actually moving towards each other xD.
 <br>
+
++ Problem (2):
+  - Balls stick in the wall xD.
++ Reason (2):
+  - When a ball overlaps with the wall, and due to collision with another ball (at the same time) has a velocity directed away from the wall, then our wall collision actually sucks in our ball instead of reflecting it (because we simply reverse the velocity).
+  - And once a ball is two steps in the wall, it can't free itself anymore. It keeps jumping one step forwards and one step backwards, not "leaving" the wall.
++ Solution (2):
+  - Yo, let's simply extend our ball-wall collision condition, to not only check whether the ball overlaps with the wall, but also whether the ball is actually moving into the wall ^^.
+
+
 
 ## equations <small>(with glitch prevention) (only what changed)</small>
 $$
@@ -301,8 +309,40 @@ $$
 
 $$
 \begin{gathered}
-\text{collision condition:\hspace{12pt}} |\,\vec{d}\:| < r_i + r_j \quad\wedge\quad v_{i,a} > v_{j,a}\\[16pt]
+\text{collision condition:\hspace{12pt}} |\,\vec{d}\:| < r_i + r_j \quad\wedge\quad v_{i,a} > v_{j,a}\\[20pt]
 \end{gathered}
+$$
+
+$$
+\text{--------- ball-wall collisions ---------}
+$$
+
+$$
+\text{\small\color{gray} (left and right wall -- for each ball)}
+$$
+
+$$
+\begin{aligned}
+v''_x =
+    \begin{cases}
+        - v'_x, & \text{if}\quad (x \lt r) \wedge (v_x < 0) \;\;\vee\;\; (w-r \lt x) \wedge (0 \lt v_x)\\
+        v'_x, & \text{otherwise}
+    \end{cases}\\[24pt]
+\end{aligned}
+$$
+
+$$
+\text{\small\color{gray} (top and bottom wall -- for each ball)}
+$$
+
+$$
+\begin{aligned}
+v''_y =
+    \begin{cases}
+        - v'_y, & \text{if}\quad (y \lt r) \wedge (v_y < 0) \;\;\vee\;\; (h-r \lt y) \wedge (0 \lt v_y)\\
+        v'_y, & \text{otherwise}
+    \end{cases}\\[24pt]
+\end{aligned}
 $$
 
 <br>
@@ -341,11 +381,37 @@ function simulateOneStep(dt) {
         }
     });
 
-    // ...
+    for (let ball of balls) {
+        if (
+            ball.x < ball.r && ball.v_x < 0 ||
+            canvas.w - ball.r < ball.x && ball.v_x > 0
+        ) {
+            ball.v_x *= -1;
+        }
+        if (
+            ball.y < ball.r && ball.v_y < 0 ||
+            canvas.h - ball.r < ball.y && ball.v_y > 0
+        ) {
+            ball.v_y *= -1;
+        }
+    }
 }
 ```
 
 <br>
+
+## the problem (3)
++ (1) Collisions of multiple balls at once are not very accurate.
+  - [SMALL GIF, kick-off]
++ Reason:
+  - In our simulation, we process collision sequentially (one after another). "The Last Collision Wins" you could say. This explains why the balls aren't moving symmetrically right from the start.
++ Weakening Factor:
+  - Normally, we wouldn't recognize that the collisions should have lead to different results, because the balls are moving so fast that it is plausible they collided after each other and not simulatenously. Everything looks fine. Only in special cases, like the kickoff at the start, the inaccuracy stands out, because we know the balls should actually move symmetrically.
++ Solution:
+  - Just wait for level 5 :P
+
+<br>
+
 
 
 
