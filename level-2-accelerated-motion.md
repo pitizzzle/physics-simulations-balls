@@ -33,7 +33,7 @@ a_y &= \frac{F_y}{m} \\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new velocity, which is constant during the time step)}
+\text{\small\color{gray} (update the velocity, which is constant during the time step)}
 $$
 
 $$
@@ -44,7 +44,7 @@ dv_y &= dt \cdot a_y \\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new position)}
+\text{\small\color{gray} (update the position)}
 $$
 
 $$
