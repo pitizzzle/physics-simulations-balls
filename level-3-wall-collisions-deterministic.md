@@ -4,6 +4,8 @@
 
 <br>
 
+
+
 ## equations
 
 $$
@@ -80,11 +82,10 @@ $$
 $$
 \begin{aligned}
 v''_x =
-\begin{cases}
-    + \left| v'_x \right|, & \text{if}\:\:\: x-r \lt 0\\
-    - \left| v'_x \right|, & \text{if}\:\:\: x+r \gt w\\
-    v'_x,               & \text{otherwise}
-\end{cases}\\[24pt]
+    \begin{cases}
+        - v'_x, & \text{if}\quad x \lt r \;\;\vee\;\; w-r \lt x\\
+        v'_x, & \text{otherwise}
+    \end{cases}\\[24pt]
 \end{aligned}
 $$
 
@@ -95,16 +96,16 @@ $$
 $$
 \begin{aligned}
 v''_y =
-\begin{cases}
-    + \left| v'_y \right|, & \text{if}\:\:\: y-r \lt 0\\
-    - \left| v'_y \right|, & \text{if}\:\:\: y+r \gt h\\
-    v'_y,               & \text{otherwise}
-\end{cases}
+    \begin{cases}
+        - v'_y, & \text{if}\quad y \lt r \;\;\vee\;\; h-r \lt y\\
+        v'_y, & \text{otherwise}
+    \end{cases}
 \end{aligned}
 $$
 
-
 <br>
+
+
 
 ## code
 ```js
@@ -132,22 +133,17 @@ function simulateOneStep(dt) {
     ball.x += dt * ball.v_x;
     ball.y += dt * ball.v_y;
 
-    if (ball.x - ball.r < 0) {
-        ball.vx = Math.abs(ball.vx);
+    if (ball.x < ball.r || canvas.w - ball.r < ball.x) {
+        ball.v_x *= -1;
     }
-    if (ball.x + ball.r - w > 0) {
-        ball.vx = - Math.abs(ball.vx);
-    }
-    if (ball.y - ball.r < 0) {
-        ball.vy = Math.abs(ball.vy);
-    }
-    if (ball.y + ball.r - h > 0) {
-        ball.vy = - Math.abs(ball.vy);
+    if (ball.y < ball.r || canvas.h - ball.r < ball.y) {
+        ball.v_y *= -1;
     }
 }
 ```
 
 <br>
+
 
 
 ## the problem
@@ -166,6 +162,7 @@ function simulateOneStep(dt) {
 + As you can see, the ball jumps up again to the same height it initially started with. Symmetry successfully restored.
 
 <br>
+
 
 
 ## equations <small>(using average velocity) (only what changed)</small>
@@ -196,6 +193,7 @@ y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \frac{v_y + v'_y}{2}\\[8pt]
 $$
 
 <br>
+
 
 
 ## code <small>(using average velocity) (only what changed)</small>
