@@ -36,6 +36,7 @@
 <br><br>
 
 
+
 ## dimensions, coordinate system
 + We stick to 2D simulations.
   - They are a lot easier than 3D simulations but make almost the same amount of fun, because our screens are flat anyway.
@@ -44,3 +45,10 @@
 + basically all the balls' values become vectors, meaning they're split up in their respective $x$ and $y$ components
   - .... [formulas of split up components]
 
+<br><br>
+
+
+
+## collisions
++ A collision between two simulated objects (eg. a ball and another ball) is detected by checking whether their geometric shapes (in our case circles) overlap. If they overlap, the objects must have bumped into each other.
++ The same applies to a collision between a ball and a wall. If the ball "sticks" in the wall (overlaps with it) it must have bumped into it.
