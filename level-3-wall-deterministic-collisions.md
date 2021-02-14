@@ -150,7 +150,7 @@ function simulateOneStep(dt) {
 ## discussion of the time step equations
 + Again, like in level 2, we have utilized the most simple time step equations, which are slightly less accurate than those that use the average velocity to update the position.
 + But this time, unlike in level 2, you will quickly notice a difference. The ball jumps lower with every bounce off the ground with the simple time step equations.
-+ This simplified example illustrates that the problem is again due to the fact that we assume the new velocity (that belongs to the state AFTER the time step) to be constant when updating the position of the ball. The collision is not symmetric, the ball approaches the ground with <img src="https://latex.codecogs.com/svg.latex?v%3D2" /><!--v=2--> but leaves it with only <img src="https://latex.codecogs.com/svg.latex?v%3D-1" /><!--v=-1-->.
++ This simplified example illustrates that the problem is again caused by the circumstance that we assume the new velocity (that belongs to the state AFTER the time step) to be constant when updating the position of the ball. The collision is not symmetric, the ball approaches the ground with <img src="https://latex.codecogs.com/svg.latex?v%3D2" /><!--v=2--> but leaves it with only <img src="https://latex.codecogs.com/svg.latex?v%3D-1" /><!--v=-1-->.
 
 <div align="center"><img src="img/level-3-simplified-diagram-(1).jpg" width="500" alt="level-3-simplified-diagram-(1)" /></div>
 
