@@ -16,8 +16,8 @@ $$
 $$
 \begin{aligned}
 \text{\hspace{50pt}}
-w &= \text{const.}\text{\small\color{gray}\hspace{14pt}(width of the scene)}\\
-h &= \text{const.}\text{\small\color{gray}\hspace{14pt}(height of the scene)}\\[8pt]
+w &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(width of the scene)}\\
+h &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(height of the scene)}\\[8pt]
 \end{aligned}
 $$
 
@@ -29,11 +29,11 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (for every ball i ...)}
+\text{\small\color{Gray} (for every ball i ...)}
 $$
 
 $$
-\text{\small\color{gray} (new position, using the new velocity)}
+\text{\small\color{Gray} (new position, using the new velocity)}
 $$
 
 $$
@@ -49,7 +49,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (for every pair of balls i and j ...)}
+\text{\small\color{Gray} (for every pair of balls i and j ...)}
 $$
 
 <div align="center"><img src="img/level-4-collision-diagram-(1).svg" alt="level-4-collision-diagram-(1)" width="700" /></div>
@@ -64,7 +64,7 @@ $$
 
 $$
 \begin{gathered}
-\text{\small\color{gray} (in case of collision ...)}\\[8pt]
+\text{\small\color{Gray} (in case of collision ...)}\\[8pt]
 \text{\small By neglecting friction, the balls essentially only collide}\\
 \text{\small along the axis of their centers (direction s), like in }\\
 \text{\small a head-on collision. The velocities perpendicular to }\\
@@ -119,28 +119,28 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (left and right wall -- for each ball)}
+\text{\small\color{Gray} (left and right wall -- for each ball)}
 $$
 
 $$
 \begin{aligned}
 v''_x =
     \begin{cases}
-        - v'_x, & \text{if}\quad x \lt r \;\;\vee\;\; w-r \lt x\\
+        - v'_x, & \text{if}\quad x < r \;\;\vee\;\; w-r < x\\
         v'_x, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
 $$
 
 $$
-\text{\small\color{gray} (top and bottom wall -- for each ball)}
+\text{\small\color{Gray} (top and bottom wall -- for each ball)}
 $$
 
 $$
 \begin{aligned}
 v''_y =
     \begin{cases}
-        - v'_y, & \text{if}\quad y \lt r \;\;\vee\;\; h-r \lt y\\
+        - v'_y, & \text{if}\quad y < r \;\;\vee\;\; h-r < y\\
         v'_y, & \text{otherwise}
     \end{cases}
 \end{aligned}
@@ -298,7 +298,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (for every pair of balls, i and j, ...)}
+\text{\small\color{Gray} (for every pair of balls, i and j, ...)}
 $$
 
 $$
@@ -327,28 +327,28 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (left and right wall -- for each ball)}
+\text{\small\color{Gray} (left and right wall -- for each ball)}
 $$
 
 $$
 \begin{aligned}
 v''_x =
     \begin{cases}
-        - v'_x, & \text{if}\quad (x \lt r) \wedge (v_x < 0) \;\;\vee\;\; (w-r \lt x) \wedge (0 \lt v_x)\\
+        - v'_x, & \text{if}\quad (x < r) \wedge (v_x < 0) \;\;\vee\;\; (w-r < x) \wedge (0 < v_x)\\
         v'_x, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
 $$
 
 $$
-\text{\small\color{gray} (top and bottom wall -- for each ball)}
+\text{\small\color{Gray} (top and bottom wall -- for each ball)}
 $$
 
 $$
 \begin{aligned}
 v''_y =
     \begin{cases}
-        - v'_y, & \text{if}\quad (y \lt r) \wedge (v_y < 0) \;\;\vee\;\; (h-r \lt y) \wedge (0 \lt v_y)\\
+        - v'_y, & \text{if}\quad (y < r) \wedge (v_y < 0) \;\;\vee\;\; (h-r < y) \wedge (0 < v_y)\\
         v'_y, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}

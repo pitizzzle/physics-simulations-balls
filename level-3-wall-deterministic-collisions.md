@@ -15,11 +15,11 @@ $$
 $$
 \begin{aligned}
 \text{\hspace{50pt}}
-m &= \text{const.}\text{\small\color{gray}\hspace{14pt}(mass of the ball)}\\
-g &= \text{const.}\text{\small\color{gray}\hspace{14pt}(gravity constant)}\\
-r&=\text{const.}\text{\small\color{gray}\hspace{14pt}(radius of the ball)}\\
-w&=\text{const.}\text{\small\color{gray}\hspace{14pt}(width of the scene)}\\
-h&=\text{const.}\text{\small\color{gray}\hspace{14pt}(height of the scene)}\\[8pt]
+m &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(mass of the ball)}\\
+g &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(gravity constant)}\\
+r&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(radius of the ball)}\\
+w&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(width of the scene)}\\
+h&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(height of the scene)}\\[8pt]
 \end{aligned}
 $$
 
@@ -28,7 +28,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (new force, which is constant during the time step)}
+\text{\small\color{Gray} (new force, which is constant during the time step)}
 $$
 
 $$
@@ -39,7 +39,7 @@ F_y &= m \cdot g\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new acceleration, which is constant during the time step)}
+\text{\small\color{Gray} (new acceleration, which is constant during the time step)}
 $$
 
 $$
@@ -50,7 +50,7 @@ a_y &= \frac{F_y}{m}\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new velocity after the time step)}
+\text{\small\color{Gray} (new velocity after the time step)}
 $$
 
 $$
@@ -61,7 +61,7 @@ v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new position, using the new velocity)}
+\text{\small\color{Gray} (new position, using the new velocity)}
 $$
 
 $$
@@ -78,28 +78,28 @@ $$
 <div align="center"><img src="img/level-3-collision-diagram.svg" alt="level-3-collision-diagram" width="700" /></div>
 
 $$
-\text{\small\color{gray} (left and right wall)}
+\text{\small\color{Gray} (left and right wall)}
 $$
 
 $$
 \begin{aligned}
 v''_x =
     \begin{cases}
-        - v'_x, & \text{if}\quad x \lt r \;\;\vee\;\; w-r \lt x\\
+        - v'_x, & \text{if}\quad x < r \;\;\vee\;\; w-r < x\\
         v'_x, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
 $$
 
 $$
-\text{\small\color{gray} (top and bottom wall)}
+\text{\small\color{Gray} (top and bottom wall)}
 $$
 
 $$
 \begin{aligned}
 v''_y =
     \begin{cases}
-        - v'_y, & \text{if}\quad y \lt r \;\;\vee\;\; h-r \lt y\\
+        - v'_y, & \text{if}\quad y < r \;\;\vee\;\; h-r < y\\
         v'_y, & \text{otherwise}
     \end{cases}
 \end{aligned}
@@ -171,7 +171,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (new velocity after the time step)}
+\text{\small\color{Gray} (new velocity after the time step)}
 $$
 
 $$
@@ -182,7 +182,7 @@ v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new position, using the average velocity)}
+\text{\small\color{Gray} (new position, using the average velocity)}
 $$
 
 $$

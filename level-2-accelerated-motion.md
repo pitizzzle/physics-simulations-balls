@@ -23,7 +23,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (new velocity after the time step)}
+\text{\small\color{Gray} (new velocity after the time step)}
 $$
 
 $$
@@ -34,7 +34,7 @@ v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new position, using the new velocity)}
+\text{\small\color{Gray} (new position, using the new velocity)}
 $$
 
 $$
@@ -104,7 +104,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (new position, using the average velocity)}
+\text{\small\color{Gray} (new position, using the average velocity)}
 $$
 
 $$

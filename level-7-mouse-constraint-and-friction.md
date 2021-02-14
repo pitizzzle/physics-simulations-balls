@@ -43,7 +43,7 @@ $$
 $$
 \begin{aligned}
 \text{\hspace{50pt}}
-\mu &= \text{const.}\text{\small\color{gray}\hspace{14pt}(drag friction coefficient)}\\[14pt]
+\mu &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(drag friction coefficient)}\\[14pt]
 \end{aligned}
 $$
 
@@ -52,12 +52,12 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (for every ball i, except the one with mouse constraint, ...)}
+\text{\small\color{Gray} (for every ball i, except the one with mouse constraint, ...)}
 $$
 
 $$
 \begin{aligned}
-v_i &= \sqrt{v_{i,x}^{\,2} + v_{i,y}^{\,2}} + 0.000001 \quad\begin{gathered}\text{\small\color{gray}(prevent division}\\[-4pt] \text{\small\color{gray}with zero later)}\end{gathered}\\[4pt]
+v_i &= \sqrt{v_{i,x}^{\,2} + v_{i,y}^{\,2}} + 0.000001 \quad\begin{gathered}\text{\small\color{Gray}(prevent division}\\[-4pt] \text{\small\color{Gray}with zero later)}\end{gathered}\\[4pt]
 F_R &= \mu \cdot v_i^2 \cdot m_i^{-1} \\[4pt]
 F'''_{i,x} &= F''_{i,x} - \dfrac{v_{i,x}}{v_i} \cdot F_R\\[8pt]
 F'''_{i,y} &= F''_{i,y} - \dfrac{v_{i,y}}{v_i} \cdot F_R\\[8pt]

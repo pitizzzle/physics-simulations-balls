@@ -37,11 +37,11 @@ $$
 $$
 \begin{aligned}
 \text{\hspace{50pt}}
-m &= \text{const.}\text{\small\color{gray}\hspace{14pt}(mass of the ball)}\\
-g &= \text{const.}\text{\small\color{gray}\hspace{14pt}(gravity constant)}\\
-r&=\text{const.}\text{\small\color{gray}\hspace{14pt}(radius of the ball)}\\
-w&=\text{const.}\text{\small\color{gray}\hspace{14pt}(width of the scene)}\\
-h&=\text{const.}\text{\small\color{gray}\hspace{14pt}(height of the scene)}\\[8pt]
+m &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(mass of the ball)}\\
+g &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(gravity constant)}\\
+r&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(radius of the ball)}\\
+w&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(width of the scene)}\\
+h&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(height of the scene)}\\[8pt]
 \end{aligned}
 $$
 
@@ -52,9 +52,9 @@ $$
 $$
 \begin{aligned}
 \text{\hspace{50pt}}
-w &= \text{const.}\text{\small\color{gray}\hspace{14pt}(width of the scene)}\\
-h &= \text{const.}\text{\small\color{gray}\hspace{14pt}(height of the scene)}\\
-k &= \text{const.}\text{\small\color{gray}\hspace{14pt}(spring stiffness)}\\[14pt]
+w &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(width of the scene)}\\
+h &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(height of the scene)}\\
+k &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(spring stiffness)}\\[14pt]
 \end{aligned}
 $$
 
@@ -71,30 +71,30 @@ $$
 <div align="center"><img src="img/level-5-collision-diagram-(2).svg" alt="level-4-collision-diagram-(2)" width="700" /></div>
 
 $$
-\text{\small\color{gray} (left and right wall)}
+\text{\small\color{Gray} (left and right wall)}
 $$
 
 $$
 \begin{aligned}
 F'_{x} =
     \begin{cases}
-        + (r-x) \cdot k, & \text{if}\quad 0 \lt r-x\\
-        - (x+r-w) \cdot k,\quad & \text{if}\quad 0 \lt x+r-w\\
+        + (r-x) \cdot k, & \text{if}\quad 0 < r-x\\
+        - (x+r-w) \cdot k,\quad & \text{if}\quad 0 < x+r-w\\
         0, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
 $$
 
 $$
-\text{\small\color{gray} (top and bottom wall)}
+\text{\small\color{Gray} (top and bottom wall)}
 $$
 
 $$
 \begin{aligned}
 F'_{i,y} =
     \begin{cases}
-        + (r-y) \cdot k, &\text{if}\quad 0 \lt r-y\\
-        - (y+r-h) \cdot k,\quad & \text{if}\quad 0 \lt y+r-h\\
+        + (r-y) \cdot k, &\text{if}\quad 0 < r-y\\
+        - (y+r-h) \cdot k,\quad & \text{if}\quad 0 < y+r-h\\
         0, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
@@ -105,7 +105,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (new force, which is constant during the time step)}
+\text{\small\color{Gray} (new force, which is constant during the time step)}
 $$
 
 $$
@@ -116,7 +116,7 @@ F''_y &= F'_y + m \cdot g\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new acceleration, which is constant during the time step)}
+\text{\small\color{Gray} (new acceleration, which is constant during the time step)}
 $$
 
 $$
@@ -127,7 +127,7 @@ a'_y &= \frac{F''_y}{m}\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new velocity after the time step)}
+\text{\small\color{Gray} (new velocity after the time step)}
 $$
 
 $$
@@ -138,7 +138,7 @@ v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a'_y\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new position, using the new velocity)}
+\text{\small\color{Gray} (new position, using the new velocity)}
 $$
 
 $$

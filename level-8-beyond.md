@@ -13,6 +13,7 @@
     ...
   \end{gathered}
   $$
+  
   - See [here](https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Book%3A_Classical_Mechanics_(Tatum)/05%3A_Collisions/5.04%3A_Oblique_Collisions) for a little bit more information on the coefficient of restitution.
   <br>
 

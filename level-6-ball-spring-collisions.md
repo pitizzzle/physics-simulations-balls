@@ -27,9 +27,9 @@ $$
 $$
 \begin{aligned}
 \text{\hspace{50pt}}
-w &= \text{const.}\text{\small\color{gray}\hspace{14pt}(width of the scene)}\\
-h &= \text{const.}\text{\small\color{gray}\hspace{14pt}(height of the scene)}\\
-k &= \text{const.}\text{\small\color{gray}\hspace{14pt}(spring stiffness)}\\[14pt]
+w &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(width of the scene)}\\
+h &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(height of the scene)}\\
+k &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(spring stiffness)}\\[14pt]
 \end{aligned}
 $$
 
@@ -40,7 +40,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (for every pair of balls i and j ...)}
+\text{\small\color{Gray} (for every pair of balls i and j ...)}
 $$
 
 <div align="center"><img src="img/level-6-collision-diagram-(2).svg" alt="level-6-collision-diagram-(2)" width="700" /></div>
@@ -49,7 +49,7 @@ $$
 \begin{aligned}
 d_x &= x_j - x_i\\
 d_y &= y_j - y_i\\
-d &= \sqrt{d_x^{\,2} + d_y^{\,2}} + 0.000001 \quad\begin{gathered}\text{\small\color{gray}(prevent division}\\[-4pt] \text{\small\color{gray}with zero later)}\end{gathered}\\
+d &= \sqrt{d_x^{\,2} + d_y^{\,2}} + 0.000001 \quad\begin{gathered}\text{\small\color{Gray}(prevent division}\\[-4pt] \text{\small\color{Gray}with zero later)}\end{gathered}\\
 s &= r_i + r_j - d\\
 \end{aligned}
 $$
@@ -61,7 +61,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (force on ball j)}
+\text{\small\color{Gray} (force on ball j)}
 $$
 
 $$
@@ -80,7 +80,7 @@ F'_{j,y,i} &=
 $$
 
 $$
-\text{\small\color{gray} (force on ball i)}
+\text{\small\color{Gray} (force on ball i)}
 $$
 
 $$
@@ -91,7 +91,7 @@ F'_{i,y,j} &= - F'_{j,y,i}\\[10pt]
 $$
 
 $$
-\text{\small\color{gray} (for every ball i ...)}
+\text{\small\color{Gray} (for every ball i ...)}
 $$
 
 $$
@@ -108,34 +108,34 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (for every ball i ...)}
+\text{\small\color{Gray} (for every ball i ...)}
 $$
 
 $$
-\text{\small\color{gray} (left and right wall)}
+\text{\small\color{Gray} (left and right wall)}
 $$
 
 $$
 \begin{aligned}
 F''_{i,x} =
     \begin{cases}
-        F'_{i,x} + (r_i-x_i) \cdot k, & \text{if}\quad 0 \lt r_i-x_i\\
-        F'_{i,x} - (x_i+r_i-w) \cdot k,\quad & \text{if}\quad 0 \lt x_i+r_i-w\\
+        F'_{i,x} + (r_i-x_i) \cdot k, & \text{if}\quad 0 < r_i-x_i\\
+        F'_{i,x} - (x_i+r_i-w) \cdot k,\quad & \text{if}\quad 0 < x_i+r_i-w\\
         F'_{i,x}, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
 $$
 
 $$
-\text{\small\color{gray} (top and bottom wall)}
+\text{\small\color{Gray} (top and bottom wall)}
 $$
 
 $$
 \begin{aligned}
 F''_{i,y} =
     \begin{cases}
-        F'_{i,y} + (r_i-y_i) \cdot k, &\text{if}\quad 0 \lt r_i-y_i\\
-        F'_{i,y} - (y_i+r_i-h) \cdot k,\quad & \text{if}\quad 0 \lt y_i+r_i-h\\
+        F'_{i,y} + (r_i-y_i) \cdot k, &\text{if}\quad 0 < r_i-y_i\\
+        F'_{i,y} - (y_i+r_i-h) \cdot k,\quad & \text{if}\quad 0 < y_i+r_i-h\\
         F'_{i,y}, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
@@ -148,11 +148,11 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (for every ball i ...)}
+\text{\small\color{Gray} (for every ball i ...)}
 $$
 
 $$
-\text{\small\color{gray} (new acceleration, which is constant during the time step)}
+\text{\small\color{Gray} (new acceleration, which is constant during the time step)}
 $$
 
 $$
@@ -163,7 +163,7 @@ a'_{i,y} &= \frac{F''_{i,y}}{m}\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (new velocity after the time step)}
+\text{\small\color{Gray} (new velocity after the time step)}
 $$
 
 $$
@@ -174,7 +174,7 @@ v'_{i,y} &= v_{i,y} + dv_{i,y}  &  &\leftarrow  &  dv_{i,y} &= dt \cdot a'_{i,y}
 $$
 
 $$
-\text{\small\color{gray} (new position, using the new velocity)}
+\text{\small\color{Gray} (new position, using the new velocity)}
 $$
 
 $$
