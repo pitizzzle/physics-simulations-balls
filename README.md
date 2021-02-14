@@ -22,6 +22,6 @@ Understand the concepts, equations and code needed for simulating the movement a
 <br><br><br>
 
 
-#### technical contribution
+### technical contribution
 + The Visual Studio Code Extension [`Markdown Preview Enhanced`](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) was used for rendering the Markdown files to HTML (including the beautiful TeX math formulas 😇).
   - Steps: click the "Markdown Preview Enhanced" menu button > right-click somewhere on the preview > "HTML" > "HTML (cdn hosted)"
