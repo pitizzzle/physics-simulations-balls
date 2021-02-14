@@ -28,7 +28,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (update the force -- will be constant for this time step)}
+\text{\small\color{gray} (new force, which is constant during the time step)}
 $$
 
 $$
@@ -39,7 +39,7 @@ F_y &= m \cdot g\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (update the acceleration -- will be constant for this time step)}
+\text{\small\color{gray} (new acceleration, which is constant during the time step)}
 $$
 
 $$
@@ -50,7 +50,7 @@ a_y &= \frac{F_y}{m}\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (update the velocity -- will be constant for this time step)}
+\text{\small\color{gray} (new velocity after the time step)}
 $$
 
 $$
@@ -61,7 +61,7 @@ v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (update the position)}
+\text{\small\color{gray} (new position, using the new velocity)}
 $$
 
 $$
@@ -74,6 +74,8 @@ $$
 $$
 \text{--------- wall collisions ---------}
 $$
+
+<div align="center"><img src="img/level-3-collision-diagram.svg" alt="level-3-collision-diagram" width="700" /></div>
 
 $$
 \text{\small\color{gray} (left and right wall)}
@@ -145,24 +147,22 @@ function simulateOneStep(dt) {
 <br>
 
 
-
-## the problem
-+ You will notice, that using the update rules above, the ball jumps lower with every bounce off the ground.
-+ It's true that simulating motion in discrete time steps is just an approximation, and therefore not 100% accurate. But normally, you don't actually see the inaccuracy this drastically, because the errors resulting in lower-than-reality speeds balance out with errors resulting in higher-than-reality speeds. If you see that errors constructively accumulate, like that the ball is jumping lower and lower, you know that there must be a systematic flaw in your simulation rules.
-+ In this special case here (gravity force and deterministic collision detection), our update rules are suboptimal. We treat the new velocity (for the state AFTER the time step) as the average velocity DURING the step. This conflicts with simply reversing the direction of velocity on collisions.
-+ By looking at a simplified example we can figure it out.
+## discussion of the time step equations
++ Again, like in level 2, we have utilized the most simple time step equations, which are slightly less accurate than those that use the average velocity to update the position.
++ But this time, unlike in level 2, you will quickly notice a difference. The ball jumps lower with every bounce off the ground with the simple time step equations.
++ This simplified example illustrates that the problem is again due to the fact that we assume the new velocity (that belongs to the state AFTER the time step) to be constant when updating the position of the ball. The collision is not symmetric, the ball approaches the ground with $v=2$ but leaves it with only $v=-1$.
 
 <div align="center"><img src="img/level-3-simplified-diagram-(1).jpg" width="500" alt="level-3-simplified-diagram-(1)" /></div>
 
-+ This is the reason why the ball loses velocity systematically.
-+ The solution? Let's apply the ACTUAL average velocity for each time step, instead of treating the new velocity (for the state after the time step) as the average velocity during the time step.
++ This is easily fixed by using the average velocity to update the position of the ball, because then the collision becomes symmetric, retracting with the same velocity it approached with.
 
 <div align="center"><img src="img/level-3-simplified-diagram-(2).jpg" width="440" alt="level-3-simplified-diagram-(2)" /></div>
 
-+ As you can see, the ball jumps up again to the same height it initially started with. Symmetry successfully restored.
++ Hint:
+  - The problem of asymmetric collisions only applies to special scenarios, like the current one, where a force acts on the ball.
+  - In the next level, where we don't have any forces involved, we won't have the problem of asymmetric collisions with the simple update rule (only the problem of slight physical inaccuracy remains).
 
 <br>
-
 
 
 ## equations <small>(using average velocity) (only what changed)</small>
@@ -171,7 +171,7 @@ $$
 $$
 
 $$
-\text{\small\color{gray} (update the velocity -- will NOT be constant for this time step)}
+\text{\small\color{gray} (new velocity after the time step)}
 $$
 
 $$
@@ -182,13 +182,13 @@ v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
 $$
 
 $$
-\text{\small\color{gray} (update position -- using the average velocity)}
+\text{\small\color{gray} (new position, using the average velocity)}
 $$
 
 $$
 \begin{aligned}
-x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \frac{v_x + v'_x}{2}\\[8pt]
-y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \frac{v_y + v'_y}{2}\\[8pt]
+x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \dfrac{v_x + v'_x}{2}\\[8pt]
+y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \dfrac{v_y + v'_y}{2}\\[8pt]
 \end{aligned}
 $$
 
@@ -207,7 +207,6 @@ function simulateOneStep(dt) {
     const v_y_old = ball.v_y;
     ball.v_x += dt * a_x;
     ball.v_y += dt * a_y;
-    
     ball.x += dt * 0.5 * (v_x_old + ball.v_x);
     ball.y += dt * 0.5 * (v_y_old + ball.v_y);
 
@@ -219,7 +218,7 @@ function simulateOneStep(dt) {
 
 
 
-## working example <small>(for both update rule sets)</small>
+## working example <small>(for all variants)</small>
 
 ||||
 | --- | --- | --- |

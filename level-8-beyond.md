@@ -1,13 +1,45 @@
 
 ## advanced physics
 
-### dealing with more complex objects (like rectangles or even arbitrary polygons)
-+ if you want to understand it
-  - Erik Neumann has assembled explanations and code for almost every simulation you can think of. Great work!
-  - https://www.myphysicslab.com/
-  - But beware: things get really complex pretty fast. I did not even work through it myself yet. Would be great if someone could explain it to me on day :P
+#### simulating internal friction for collisions
++ For deterministic collisions ...
+  - You can simply solve the system of equations for a collision, but replacing the energy conservation equation with the more general factor of $e$.
+  $$
+  \begin{gathered}
+    \begin{vmatrix}
+    \quad m_1 \cdot u_1 + m_2 \cdot u_2 = m_1 \cdot v_1 + m_2 \cdot v_2 \quad\\
+    e \cdot (u_1 - u_2) = v_2 - v_1
+    \end{vmatrix}\\[8pt]
+    ...
+  \end{gathered}
+  $$
+  - See [here](https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Book%3A_Classical_Mechanics_(Tatum)/05%3A_Collisions/5.04%3A_Oblique_Collisions) for a little bit more information on the coefficient of restitution.
+  <br>
 
-+ if you just want to use it
++ For spring collisions ...
+  - You can try something like applying a factor $e \leq 1$ on the spring force during a collision, but only in the retraction phase (if the objects are already moving away from each other)
+  $$
+  F = \begin{cases}
+    s \cdot k, & \text{if collision and objects are approaching each other}\\
+    s \cdot k \cdot e, & \text{if collision and objects moving away from each other}\\
+    0, & \text{otherwise}
+  \end{cases}
+  $$
+
+<br>
+
+
+#### dealing with more complex objects like rectangles or even arbitrary polygons, torque simulation, path constraints
++ If you want to understand it yourself..
+  - Erik Neumann has assembled explanations and code for almost every simulation you can think of, including arbitrary polygons and r (see [this example](https://www.myphysicslab.com/engine2D/pendulum-clock-en.html)) and torque simulation, and path constraints. Great work!
+  - https://www.myphysicslab.com/
+  - examples:
+    - Polygon Shapes and Torque Simulation https://www.myphysicslab.com/engine2D/shapes-en.html
+    - Roller Coaster with Two Balls https://www.myphysicslab.com/roller/roller-double-en.html
+  - But beware: things get quite complex pretty fast. I didn't even work through it myself yet. Would be great if one day someone could explain it to me :P
+  <br>
+
++ If you just want to use it..
   - [Matter.js](https://brm.io/matter-js/) is the most prominent library for universal rigid-body simulations.
 
 <br>
@@ -16,7 +48,7 @@
 
 ## advanced rendering techniques:
 
-### Motion Blur
+#### Motion Blur
 + basic concept:
   - You have to emulate what happens in real film camera.
   - If a red rectangle flies through the image, each pixel in the image only depicts a translucent percentage of that red color, proportional to the time the object was seeable on that pixel.
@@ -35,4 +67,3 @@
     * It's not trivial to average pixels along an axis. You will need interpolation for that.
     * If your object moves into the frame from outside the frame, you will have to average with pixels out of the pixel. Good luck ;)
     * If you have overlaying objects, things become really tricky. You basically have to render the layers one after each other, on top of each other, else it won't look good xD. But for this, your renderer has to output all layers in independent buffers, which contradicts our assumption that we can apply motion blur as simple post-processing on the rendered frame, yo.
-

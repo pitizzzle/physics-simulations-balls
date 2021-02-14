@@ -5,34 +5,50 @@
 
 ## equations
 $$
+\text{--------- constants ---------}
+$$
+
+$$
 \begin{aligned}
 v_x = const. \\
 v_y = const.
 \end{aligned}
 $$
+
+$$
+\text{--------- time step ---------}
+$$
+
 $$
 \begin{aligned}
-\text{time step: { }{ }{ } } dx &= dt \cdot v_x \\
-dy &= dt \cdot v_y
+x'&= x + dx  &  &\leftarrow  &  dx&= dt \cdot v_x\\
+y'&= y + dy  &  &\leftarrow  &  dy&= dt \cdot v_y
 \end{aligned}
 $$
 
 <br>
 
-## code
+## code equivalent
 ```js
 const ball = {
     x: 0,
     y: 0,
-    v_x: 1,
-    v_y: 2,
 };
+
+const v_x = 1;
+const v_y = 2;
 
 function simulateOneStep(dt) {
     ball.x += dt * ball.v_x;
     ball.y += dt * ball.v_y;
 }
 ```
+
+<br>
+
+## discussion of the time step equations
++ Things are really simple here.
++ We assume the velocity of the object to be constant all the time. Therefore, in each time step the position shall be updated a tiny bit forward using this constant velocity.
 
 <br>
 
