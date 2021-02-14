@@ -74,20 +74,26 @@ function simulateOneStep(dt) {
 ## discussion of the time step equations
 + If you pay close attention to the time step equations above, you will notice that they're not 100% physically accurate.
 + The ball's position is always updated using the new velocity (that belongs to the state AFTER the time step), assuming this new velocity is already present and constant during the time step itself.
-  - [DIAGRAM]
+  <div align="center"><img src="img/level-2-v-t-diagram-(1).svg" alt="level-2-v-t-diagram-(1)" width="400" /></div>
+
 + In reality, this should not be the case. During the time step, to update the position we should assume that the velocity changes linearly from the start velocity to the new velocity, instead of having the new velocity all the time.
-  - [DIAGRAM]
+  <div align="center"><img src="img/level-2-v-t-diagram-(2).svg" alt="level-2-v-t-diagram-(2)" width="400" /></div>
+
 + To correct our time step equations in that regard, to update the position we can simply use the average velocity for each time step (ie. the mean of the old velocity and the new velocity), which is equivalent to the linear change from above.
-  - [DIAGRAM]
+  <div align="center"><img src="img/level-2-v-t-diagram-(3).svg" alt="level-2-v-t-diagram-(3)" width="400" /></div>
+
 + And then, how big is the error of our initial time step equations, compared to the physically correct ones?
   - The velocities after each time step are 100% identical.
   - The position has an error, as we already figured out.
-  - Looking at the diagrams, we can clearly see, that the $v(t)$ graph of our initial time step equations is just shifted upwards by $\dfrac{dt \cdot a}{2}$ compared to the phyiscally correct time step equations.
-  - [DIAGRAM]
-  - This means the error becomes (.. relatively speaking ..) small if we travel at high velocity, and it becomes small as well if we make the time steps smaller.
+  - Looking at the diagrams, we can clearly see, that the $v(t)$ graph of our initial time step equations is just shifted upwards by $0.5 \cdot a \cdot 1dt$ compared to the phyiscally correct time step equations.
+  <div align="center"><img src="img/level-2-v-t-diagram-(4).svg" alt="level-2-v-t-diagram-(4)" width="400" /></div>
+
+  - This means the error of our initial simple time step equations becomes smaller (relatively speaking) if we travel at high velocity, and it becomes smaller as well if we make the time steps smaller.
+  <div align="center"><img src="img/level-2-v-t-diagram-(5).svg" alt="level-2-v-t-diagram-(5)" width="400" /></div>
+
 + To summarize, ..
-  - we could use the initial time step equations from above, and would probably don't see a difference.
-  - But it becomes more physically accurate if we use the average velocity to update the position, because compared to our initial time step equations there is a small error margin.
+  - We could use the initial simple time step equations and would probably don't see a difference.
+  - But theoretically, it becomes slightly more physically accurate if we use the average velocity to update the position, because compared to our initial time step equations there is a small error margin.
 
 <br>
 
