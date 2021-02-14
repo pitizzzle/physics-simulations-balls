@@ -67,4 +67,3 @@ $$
 \vec{a} = \begin{pmatrix}a_x\\ a_y\end{pmatrix}
 $$
 
-<br><br>

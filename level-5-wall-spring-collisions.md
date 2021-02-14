@@ -306,6 +306,6 @@ function simulateOneStep(dt) {
 
 ## working example <small>(for all variants)</small>
 
-||||
-| --- | --- | --- |
-| [Code]() | [Code Live]() | [Code Fiddle]() |
+|||
+| --- | --- |
+| [Code](https://github.com/pitizzzle/physics-simulations-balls/blob/main/code/level-5-wall-spring-collisions.html) | [Code Live](https://pitizzzle.github.io/simulate-ball-physics/code/level-5-wall-spring-collisions.html) |

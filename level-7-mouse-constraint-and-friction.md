@@ -142,6 +142,6 @@ function onMouseMove(newMouseX, newMouseY) {
 
 ## working example
 
-||||
-| --- | --- | --- |
-| [Code]() | [Code Live]() | [Code Fiddle]() |
+|||
+| --- | --- |
+| [Code](https://github.com/pitizzzle/physics-simulations-balls/blob/main/code/level-7-mouse-constraint-and-friction.html) | [Code Live](https://pitizzzle.github.io/simulate-ball-physics/code/level-7-mouse-constraint-and-friction.html) |

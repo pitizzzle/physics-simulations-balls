@@ -53,6 +53,6 @@ function simulateOneStep(dt) {
 
 ## working example
 
-||||
-| --- | --- | --- |
-| [Code](https://github.com/pitizzzle/physics-simulations-balls/blob/main/code/level-1-uniform-motion.html) | [Code Live](https://pitizzzle.github.io/physics-simulations-balls/code/level-1-uniform-motion.html) | [Code Fiddle](https://jsfiddle.net/pitizzzle/tozgs1c5/2/) |
+|||
+| --- | --- |
+| [Code](https://github.com/pitizzzle/physics-simulations-balls/blob/main/code/level-1-uniform-motion.html) | [Code Live](https://pitizzzle.github.io/simulate-ball-physics/code/level-1-uniform-motion.html) |
