@@ -4,7 +4,7 @@ Understand the concepts, equations and code needed for simulating the movement a
 
 <div align="center"><img src="img/level-6-billiard-example.gif" alt="level-6-billiard-example" width="500"/></div>
 
-<br>
+<br><br>
 
 | | | |
 | --- | --- | --- |
@@ -19,4 +19,9 @@ Understand the concepts, equations and code needed for simulating the movement a
 | [level 8 - beyond](https://pitizzzle.github.io/simulate-ball-physics/level-8-beyond.html) | | |
 
 
-<!-- Using Visual Studio Code Extension "Markdown Preview Enhanced" (https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) for Markdown ⇒ HTML Rendering -->
+<br><br><br>
+
+
+#### technical contribution
++ The Visual Studio Code Extension [`Markdown Preview Enhanced`](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) was used for rendering the Markdown files to HTML (including the beautiful TeX math formulas 😇).
+  - Steps: click the "Markdown Preview Enhanced" menu button > right-click somewhere on the preview > "HTML" > "HTML (cdn hosted)"
