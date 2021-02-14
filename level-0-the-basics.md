@@ -57,7 +57,7 @@ $$
 
 ## dimensions, coordinate system
 + We stick to 2D simulations.
-  - 3D simulations would basically work the same way, but we don't want to rush things for now 😁.
+  - 3D simulations would basically work the same way, but we don't want to rush, right? 😁
 + So we have the $x$ and the $y$ dimension in a cartesian coordinate system.
   <div align="center"><img src="img/level-0-coordinate-system.svg" alt="level-0-coordinate-system" width="350" /></div>
 + Some physical variables of the balls thereby become vectors, meaning they're split up in their respective $x$ and $y$ components:
