@@ -16,9 +16,9 @@
   <div align="center"><img src="img/level-5-collision-diagram-(1).gif" alt="level-5-collision-diagram-(1)" width="400" /></div>
 
   - The extended spring then pulls the objects out of each other, because it wants to return to its initial length 0, by applying a force on both objects that is proportional to the distance of extension, according to [Hooke's Law](https://en.wikipedia.org/wiki/Hooke%27s_law).
-  $$
+  <div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%20%20F%20%3D%20s%20%5Ccdot%20k%0D%0A%20%20" /></div><!--
   F = s \cdot k
-  $$
+  --><br>
   - The force of this spring acts equally on both objects, but in opposite directions, pulling them out of each other (or rather pushing them away from each other).
   - Naturally, we don't want the wall to react to that force. Physically speaking, it has an infinite mass.
   - The spring force first slows down the ball's velocity down to zero. And because the ball still overlaps with the wall, the spring then accelerates the ball in the other direction and out of the wall.
@@ -30,11 +30,11 @@
 
 ## equations
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B---------%20constants%20---------%7D%0D%0A" /></div><!--
 \text{--------- constants ---------}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Cbegin%7Baligned%7D%0D%0A%5Ctext%7B%5Chspace%7B50pt%7D%7D%0D%0Am%20%26%3D%20%5Ctext%7Bconst.%7D%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%5Chspace%7B14pt%7D(mass%20of%20the%20ball)%7D%5C%5C%0D%0Ag%20%26%3D%20%5Ctext%7Bconst.%7D%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%5Chspace%7B14pt%7D(gravity%20constant)%7D%5C%5C%0D%0Ar%26%3D%5Ctext%7Bconst.%7D%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%5Chspace%7B14pt%7D(radius%20of%20the%20ball)%7D%5C%5C%0D%0Aw%26%3D%5Ctext%7Bconst.%7D%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%5Chspace%7B14pt%7D(width%20of%20the%20scene)%7D%5C%5C%0D%0Ah%26%3D%5Ctext%7Bconst.%7D%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%5Chspace%7B14pt%7D(height%20of%20the%20scene)%7D%5C%5C%5B8pt%5D%0D%0A%5Cend%7Baligned%7D%0D%0A" /></div><!--
 \begin{aligned}
 \text{\hspace{50pt}}
 m &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(mass of the ball)}\\
@@ -43,20 +43,20 @@ r&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(radius of the ball)}\\
 w&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(width of the scene)}\\
 h&=\text{const.}\text{\small\color{Gray}\hspace{14pt}(height of the scene)}\\[8pt]
 \end{aligned}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B---------%20constants%20---------%7D%0D%0A" /></div><!--
 \text{--------- constants ---------}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Cbegin%7Baligned%7D%0D%0A%5Ctext%7B%5Chspace%7B50pt%7D%7D%0D%0Aw%20%26%3D%20%5Ctext%7Bconst.%7D%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%5Chspace%7B14pt%7D(width%20of%20the%20scene)%7D%5C%5C%0D%0Ah%20%26%3D%20%5Ctext%7Bconst.%7D%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%5Chspace%7B14pt%7D(height%20of%20the%20scene)%7D%5C%5C%0D%0Ak%20%26%3D%20%5Ctext%7Bconst.%7D%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%5Chspace%7B14pt%7D(spring%20stiffness)%7D%5C%5C%5B14pt%5D%0D%0A%5Cend%7Baligned%7D%0D%0A" /></div><!--
 \begin{aligned}
 \text{\hspace{50pt}}
 w &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(width of the scene)}\\
 h &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(height of the scene)}\\
 k &= \text{const.}\text{\small\color{Gray}\hspace{14pt}(spring stiffness)}\\[14pt]
 \end{aligned}
-$$
+--><br>
 
 
 
@@ -64,17 +64,17 @@ $$
 
 
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B---------%20ball-wall%20collisions%20---------%7D%0D%0A" /></div><!--
 \text{--------- ball-wall collisions ---------}
-$$
+--><br>
 
 <div align="center"><img src="img/level-5-collision-diagram-(2).svg" alt="level-4-collision-diagram-(2)" width="700" /></div>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%20(left%20and%20right%20wall)%7D%0D%0A" /></div><!--
 \text{\small\color{Gray} (left and right wall)}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Cbegin%7Baligned%7D%0D%0AF'_%7Bx%7D%20%3D%0D%0A%20%20%20%20%5Cbegin%7Bcases%7D%0D%0A%20%20%20%20%20%20%20%20%2B%20(r-x)%20%5Ccdot%20k%2C%20%26%20%5Ctext%7Bif%7D%5Cquad%200%20%3C%20r-x%5C%5C%0D%0A%20%20%20%20%20%20%20%20-%20(x%2Br-w)%20%5Ccdot%20k%2C%5Cquad%20%26%20%5Ctext%7Bif%7D%5Cquad%200%20%3C%20x%2Br-w%5C%5C%0D%0A%20%20%20%20%20%20%20%200%2C%20%26%20%5Ctext%7Botherwise%7D%0D%0A%20%20%20%20%5Cend%7Bcases%7D%5C%5C%5B24pt%5D%0D%0A%5Cend%7Baligned%7D%0D%0A" /></div><!--
 \begin{aligned}
 F'_{x} =
     \begin{cases}
@@ -83,13 +83,13 @@ F'_{x} =
         0, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%20(top%20and%20bottom%20wall)%7D%0D%0A" /></div><!--
 \text{\small\color{Gray} (top and bottom wall)}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Cbegin%7Baligned%7D%0D%0AF'_%7Bi%2Cy%7D%20%3D%0D%0A%20%20%20%20%5Cbegin%7Bcases%7D%0D%0A%20%20%20%20%20%20%20%20%2B%20(r-y)%20%5Ccdot%20k%2C%20%26%5Ctext%7Bif%7D%5Cquad%200%20%3C%20r-y%5C%5C%0D%0A%20%20%20%20%20%20%20%20-%20(y%2Br-h)%20%5Ccdot%20k%2C%5Cquad%20%26%20%5Ctext%7Bif%7D%5Cquad%200%20%3C%20y%2Br-h%5C%5C%0D%0A%20%20%20%20%20%20%20%200%2C%20%26%20%5Ctext%7Botherwise%7D%0D%0A%20%20%20%20%5Cend%7Bcases%7D%5C%5C%5B24pt%5D%0D%0A%5Cend%7Baligned%7D%0D%0A" /></div><!--
 \begin{aligned}
 F'_{i,y} =
     \begin{cases}
@@ -98,55 +98,55 @@ F'_{i,y} =
         0, & \text{otherwise}
     \end{cases}\\[24pt]
 \end{aligned}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B---------%20time%20step%20---------%7D%0D%0A" /></div><!--
 \text{--------- time step ---------}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%20(new%20force%2C%20which%20is%20constant%20during%20the%20time%20step)%7D%0D%0A" /></div><!--
 \text{\small\color{Gray} (new force, which is constant during the time step)}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Cbegin%7Baligned%7D%0D%0AF''_x%20%26%3D%20F'_x%5C%5C%5B8pt%5D%0D%0AF''_y%20%26%3D%20F'_y%20%2B%20m%20%5Ccdot%20g%5C%5C%5B8pt%5D%0D%0A%5Cend%7Baligned%7D%0D%0A" /></div><!--
 \begin{aligned}
 F''_x &= F'_x\\[8pt]
 F''_y &= F'_y + m \cdot g\\[8pt]
 \end{aligned}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%20(new%20acceleration%2C%20which%20is%20constant%20during%20the%20time%20step)%7D%0D%0A" /></div><!--
 \text{\small\color{Gray} (new acceleration, which is constant during the time step)}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Cbegin%7Baligned%7D%0D%0Aa'_x%20%26%3D%20%5Cfrac%7BF''_x%7D%7Bm%7D%5C%5C%5B8pt%5D%0D%0Aa'_y%20%26%3D%20%5Cfrac%7BF''_y%7D%7Bm%7D%5C%5C%5B8pt%5D%0D%0A%5Cend%7Baligned%7D%0D%0A" /></div><!--
 \begin{aligned}
 a'_x &= \frac{F''_x}{m}\\[8pt]
 a'_y &= \frac{F''_y}{m}\\[8pt]
 \end{aligned}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%20(new%20velocity%20after%20the%20time%20step)%7D%0D%0A" /></div><!--
 \text{\small\color{Gray} (new velocity after the time step)}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Cbegin%7Baligned%7D%0D%0Av'_x%20%26%3D%20v_x%20%2B%20dv_x%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dv_x%20%26%3D%20dt%20%5Ccdot%20a'_x%5C%5C%5B4pt%5D%0D%0Av'_y%20%26%3D%20v_y%20%2B%20dv_y%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dv_y%20%26%3D%20dt%20%5Ccdot%20a'_y%5C%5C%5B8pt%5D%0D%0A%5Cend%7Baligned%7D%0D%0A" /></div><!--
 \begin{aligned}
 v'_x &= v_x + dv_x  &  &\leftarrow  &  dv_x &= dt \cdot a'_x\\[4pt]
 v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a'_y\\[8pt]
 \end{aligned}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Ctext%7B%5Csmall%5Ccolor%7BGray%7D%20(new%20position%2C%20using%20the%20new%20velocity)%7D%0D%0A" /></div><!--
 \text{\small\color{Gray} (new position, using the new velocity)}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%5Cbegin%7Baligned%7D%0D%0Ax'%20%26%3D%20x%20%2B%20dx%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dx%20%26%3D%20dt%20%5Ccdot%20v'_x%5C%5C%5B4pt%5D%0D%0Ay'%20%26%3D%20y%20%2B%20dy%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dy%20%26%3D%20dt%20%5Ccdot%20v'_y%5C%5C%5B14pt%5D%0D%0A%5Cend%7Baligned%7D%0D%0A" /></div><!--
 \begin{aligned}
 x' &= x + dx  &  &\leftarrow  &  dx &= dt \cdot v'_x\\[4pt]
 y' &= y + dy  &  &\leftarrow  &  dy &= dt \cdot v'_y\\[14pt]
 \end{aligned}
-$$
+--><br>
 
 <br>
 
@@ -204,7 +204,7 @@ function simulateOneStep(dt) {
 + However, unlike in level 2 or level 3, where using the average velocity to update the position is beneficial or even required, we MUST NOT USE IT for spring collisions.
   - Reason 1 (minor): We can't argue anymore that averaging the velocity would slightly increase accuracy. This is because acceleration is not strictly constant anymore (in collisions the acceleration changes dynamically). And with dynamically changing acceleration, assuming the acceleration to be constant during a time step is already such a big approximation that it would be hilarious to say that avering the velocity would significantly increase accuracy.
   - Reason 2 (important): Spring collisions are really sensitive to the time step equations (similar to the ball jumping lower and lower in level 3). The ball would actually jump higher and higher if we used the average velocity to update the ball's position. This is explained in the next paragraph.
-  $$
+  <div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%20%20%5Cbegin%7Baligned%7D%0D%0A%20%20a'_x%20%26%3D%20%5Cfrac%7BF''_x%7D%7Bm%7D%5C%5C%5B8pt%5D%0D%0A%20%20a'_y%20%26%3D%20%5Cfrac%7BF''_y%7D%7Bm%7D%5C%5C%5B8pt%5D%0D%0A%20%20v'_x%20%26%3D%20v_x%20%2B%20dv_x%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dv_x%20%26%3D%20dt%20%5Ccdot%20a'_x%5C%5C%5B4pt%5D%0D%0A%20%20v'_y%20%26%3D%20v_y%20%2B%20dv_y%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dv_y%20%26%3D%20dt%20%5Ccdot%20a'_y%5C%5C%5B4pt%5D%0D%0A%20%20x'%20%26%3D%20x%20%2B%20dx%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dx%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Bv_x%20%2B%20v'_x%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20y'%20%26%3D%20y%20%2B%20dy%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dy%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Bv_y%20%2B%20v'_y%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%5Cend%7Baligned%7D%0D%0A%20%20" /></div><!--
   \begin{aligned}
   a'_x &= \frac{F''_x}{m}\\[8pt]
   a'_y &= \frac{F''_y}{m}\\[8pt]
@@ -213,7 +213,7 @@ function simulateOneStep(dt) {
   x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \dfrac{v_x + v'_x}{2}\\[8pt]
   y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \dfrac{v_y + v'_y}{2}\\[8pt]
   \end{aligned}
-  $$
+  --><br>
   ```js
   const a_x = ball.F_x / ball.m;
   const a_y = ball.F_y / ball.m;
@@ -234,7 +234,7 @@ function simulateOneStep(dt) {
 + This theory of delayed velocity can be evidenced by two experiments:
   - (1) Delaying the the velocity used to update the ball's position even further, and obverserving that the ball gains even more speed on each collision.
     * The theory would explain this like that: "Because of the delayed velocity used to update the ball's position, the ball falls deeper into the ground and receives more upward acceleration."
-    $$
+    <div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%20%20%20%20%5Cbegin%7Baligned%7D%0D%0A%20%20%20%20a'_x%20%26%3D%20%5Cfrac%7BF''_x%7D%7Bm%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20a'_y%20%26%3D%20%5Cfrac%7BF''_y%7D%7Bm%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20v'_x%20%26%3D%20v_x%20%2B%20dv_x%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dv_x%20%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Ba_x%20%2B%20a'_x%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20v'_y%20%26%3D%20v_y%20%2B%20dv_y%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dv_y%20%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Ba_y%20%2B%20a'_y%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20x'%20%26%3D%20x%20%2B%20dx%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dx%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Bv_x%20%2B%20v'_x%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20y'%20%26%3D%20y%20%2B%20dy%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dy%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Bv_y%20%2B%20v'_y%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20%5Cend%7Baligned%7D%0D%0A%20%20%20%20" /></div><!--
     \begin{aligned}
     a'_x &= \frac{F''_x}{m}\\[8pt]
     a'_y &= \frac{F''_y}{m}\\[8pt]
@@ -243,7 +243,7 @@ function simulateOneStep(dt) {
     x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \dfrac{v_x + v'_x}{2}\\[8pt]
     y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \dfrac{v_y + v'_y}{2}\\[8pt]
     \end{aligned}
-    $$
+    --><br>
     ```js
     const F_x_old = ball.F_x;
     const F_y_old = ball.F_y;
@@ -267,7 +267,7 @@ function simulateOneStep(dt) {
 
   - (2) Anti-delaying the velocity used to update the ball's position, by predicting the next acceleration and using the average acceleration to update the velocity, and observing that the ball actually loses speed with every collision.
     * The theory would explain this like that: "Because of the anti-delayed velocity used to update ball's position, the ball quickly responds to the collision force and already leaves the ground before having gained full speed again."
-    <!--$$
+    <!--<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%20%20%20%20%5Cbegin%7Baligned%7D%0D%0A%20%20%20%20a'_x%20%26%3D%20%5Cfrac%7BF''_x%7D%7Bm%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20a'_y%20%26%3D%20%5Cfrac%7BF''_y%7D%7Bm%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20v'_x%20%26%3D%20v_x%20%2B%20dv_x%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dv_x%20%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Ba_x%20%2B%20a'_x%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20v'_y%20%26%3D%20v_y%20%2B%20dv_y%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dv_y%20%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Ba_y%20%2B%20a'_y%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20x'%20%26%3D%20x%20%2B%20dx%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dx%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Bv_x%20%2B%20v'_x%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20y'%20%26%3D%20y%20%2B%20dy%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dy%26%3D%20dt%20%5Ccdot%20%5Cdfrac%7Bv_y%20%2B%20v'_y%7D%7B2%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20%5Cend%7Baligned%7D%0D%0A%20%20%20%20" /></div><!--
     \begin{aligned}
     a'_x &= \frac{F''_x}{m}\\[8pt]
     a'_y &= \frac{F''_y}{m}\\[8pt]
@@ -276,7 +276,7 @@ function simulateOneStep(dt) {
     x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \dfrac{v_x + v'_x}{2}\\[8pt]
     y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \dfrac{v_y + v'_y}{2}\\[8pt]
     \end{aligned}
-    $$-->
+    --><br>-->
     ```js
     const F_x_old = ball.F_x;
     const F_y_old = ball.F_y;

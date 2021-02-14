@@ -4,27 +4,27 @@
 <br>
 
 ## equations
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0A%5Ctext%7B---------%20constants%20---------%7D%0A" /></div><!--
 \text{--------- constants ---------}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0A%5Cbegin%7Baligned%7D%0Av_x%20%3D%20const.%20%5C%5C%0Av_y%20%3D%20const.%0A%5Cend%7Baligned%7D%0A" /></div><!--
 \begin{aligned}
 v_x = const. \\
 v_y = const.
 \end{aligned}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0A%5Ctext%7B---------%20time%20step%20---------%7D%0A" /></div><!--
 \text{--------- time step ---------}
-$$
+--><br>
 
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0A%5Cbegin%7Baligned%7D%0Ax'%26%3D%20x%20%2B%20dx%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dx%26%3D%20dt%20%5Ccdot%20v_x%5C%5C%0Ay'%26%3D%20y%20%2B%20dy%20%20%26%20%20%26%5Cleftarrow%20%20%26%20%20dy%26%3D%20dt%20%5Ccdot%20v_y%0A%5Cend%7Baligned%7D%0A" /></div><!--
 \begin{aligned}
 x'&= x + dx  &  &\leftarrow  &  dx&= dt \cdot v_x\\
 y'&= y + dy  &  &\leftarrow  &  dy&= dt \cdot v_y
 \end{aligned}
-$$
+--><br>
 
 <br>
 

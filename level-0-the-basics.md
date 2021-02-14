@@ -1,11 +1,11 @@
 ## time steps
 + If we had a single moving object, like a ball accelerating downwards due to gravity, we could deterministically compute its physical variables (like position and velocity) as a function of time ...
-$$
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0A%5Cbegin%7Baligned%7D%0Ay(t)%20%26%3D%20%5Cdfrac%7Bg%7D%7B2%7D%20%5Ccdot%20t%5E2%5C%5C%0Av(t)%20%26%3D%20g%20%5Ccdot%20t%0A%5Cend%7Baligned%7D%0A" /></div><!--
 \begin{aligned}
 y(t) &= \dfrac{g}{2} \cdot t^2\\
 v(t) &= g \cdot t
 \end{aligned}
-$$
+--><br>
 + But in more complex simulations the position and velocity of a moving object depend on the interactions it has with its environment, whose results we most oftenly can't easily express as a function of time.
   - Example: If we simulate the balls on a billiard table (like we will do, starting in level 4), the collisions between the balls are too complex and interrelated to be able to predict the position of each ball as a function of time.
   <div align="center"><img src="img/level-6-billiard-example.gif" alt="level-6-billiard-example" width="420" /></div>
@@ -58,12 +58,12 @@ $$
 ## dimensions, coordinate system
 + We stick to 2D simulations.
   - 3D simulations would basically work the same way, but we don't want to rush, right? 😁
-+ So we have the $x$ and the $y$ dimension in a cartesian coordinate system.
++ So we have the <img src="https://latex.codecogs.com/svg.latex?x" /><!--x--> and the <img src="https://latex.codecogs.com/svg.latex?y" /><!--y--> dimension in a cartesian coordinate system.
   <div align="center"><img src="img/level-0-coordinate-system.svg" alt="level-0-coordinate-system" width="350" /></div>
-+ Some physical variables of the balls thereby become vectors, meaning they're split up in their respective $x$ and $y$ components:
-$$
++ Some physical variables of the balls thereby become vectors, meaning they're split up in their respective <img src="https://latex.codecogs.com/svg.latex?x" /><!--x--> and <img src="https://latex.codecogs.com/svg.latex?y" /><!--y--> components:
+<div align="center"><img src="https://latex.codecogs.com/svg.latex?%0A%5Cvec%7Bp%7D%20%3D%20%5Cbegin%7Bpmatrix%7Dx%5C%5C%20y%5Cend%7Bpmatrix%7D%20%5Cquad%0A%5Cvec%7Bv%7D%20%3D%20%5Cbegin%7Bpmatrix%7Dv_x%5C%5C%20v_y%5Cend%7Bpmatrix%7D%20%5Cquad%0A%5Cvec%7Ba%7D%20%3D%20%5Cbegin%7Bpmatrix%7Da_x%5C%5C%20a_y%5Cend%7Bpmatrix%7D%0A" /></div><!--
 \vec{p} = \begin{pmatrix}x\\ y\end{pmatrix} \quad
 \vec{v} = \begin{pmatrix}v_x\\ v_y\end{pmatrix} \quad
 \vec{a} = \begin{pmatrix}a_x\\ a_y\end{pmatrix}
-$$
+--><br>
 

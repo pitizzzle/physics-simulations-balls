@@ -3,8 +3,8 @@
 
 #### simulating internal friction for collisions
 + For deterministic collisions ...
-  - You can simply solve the system of equations for a collision, but replacing the energy conservation equation with the more general factor of $e$.
-  $$
+  - You can simply solve the system of equations for a collision, but replacing the energy conservation equation with the more general factor of <img src="https://latex.codecogs.com/svg.latex?e" /><!--e-->.
+  <div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%20%20%5Cbegin%7Bgathered%7D%0D%0A%20%20%20%20%5Cbegin%7Bvmatrix%7D%0D%0A%20%20%20%20%5Cquad%20m_1%20%5Ccdot%20u_1%20%2B%20m_2%20%5Ccdot%20u_2%20%3D%20m_1%20%5Ccdot%20v_1%20%2B%20m_2%20%5Ccdot%20v_2%20%5Cquad%5C%5C%0D%0A%20%20%20%20e%20%5Ccdot%20(u_1%20-%20u_2)%20%3D%20v_2%20-%20v_1%0D%0A%20%20%20%20%5Cend%7Bvmatrix%7D%5C%5C%5B8pt%5D%0D%0A%20%20%20%20...%0D%0A%20%20%5Cend%7Bgathered%7D%0D%0A%20%20" /></div><!--
   \begin{gathered}
     \begin{vmatrix}
     \quad m_1 \cdot u_1 + m_2 \cdot u_2 = m_1 \cdot v_1 + m_2 \cdot v_2 \quad\\
@@ -12,20 +12,20 @@
     \end{vmatrix}\\[8pt]
     ...
   \end{gathered}
-  $$
+  --><br>
   
   - See [here](https://phys.libretexts.org/Bookshelves/Classical_Mechanics/Book%3A_Classical_Mechanics_(Tatum)/05%3A_Collisions/5.04%3A_Oblique_Collisions) for a little bit more information on the coefficient of restitution.
   <br>
 
 + For spring collisions ...
-  - You can try something like applying a factor $e \leq 1$ on the spring force during a collision, but only in the retraction phase (if the objects are already moving away from each other)
-  $$
+  - You can try something like applying a factor <img src="https://latex.codecogs.com/svg.latex?e%20%5Cleq%201" /><!--e \leq 1--> on the spring force during a collision, but only in the retraction phase (if the objects are already moving away from each other)
+  <div align="center"><img src="https://latex.codecogs.com/svg.latex?%0D%0A%20%20F%20%3D%20%5Cbegin%7Bcases%7D%0D%0A%20%20%20%20s%20%5Ccdot%20k%2C%20%26%20%5Ctext%7Bif%20collision%20and%20objects%20are%20approaching%20each%20other%7D%5C%5C%0D%0A%20%20%20%20s%20%5Ccdot%20k%20%5Ccdot%20e%2C%20%26%20%5Ctext%7Bif%20collision%20and%20objects%20moving%20away%20from%20each%20other%7D%5C%5C%0D%0A%20%20%20%200%2C%20%26%20%5Ctext%7Botherwise%7D%0D%0A%20%20%5Cend%7Bcases%7D%0D%0A%20%20" /></div><!--
   F = \begin{cases}
     s \cdot k, & \text{if collision and objects are approaching each other}\\
     s \cdot k \cdot e, & \text{if collision and objects moving away from each other}\\
     0, & \text{otherwise}
   \end{cases}
-  $$
+  --><br>
 
 <br>
 
@@ -66,7 +66,7 @@
   - If a red rectangle flies through the image, each pixel in the image only depicts a translucent percentage of that red color, proportional to the time the object was seeable on that pixel.
   - If a pixel "sees" the red for the full life-time of the frame, it is assigned red with 100% opacity. But if a pixel "sees" the red only for 50% of the life-time of the the frame, it is assigned red with 50% opacity.
 + technique 1:
-  - divide each frame in $n$ simulation sub-steps, and render your object for each of the sub-steps (in contrast to once for each frame), but all with $100% / n$ opacity (in contrast to $100%$ opacity).
+  - divide each frame in <img src="https://latex.codecogs.com/svg.latex?n" /><!--n--> simulation sub-steps, and render your object for each of the sub-steps (in contrast to once for each frame), but all with <img src="https://latex.codecogs.com/svg.latex?100%25%20%2F%20n" /><!--100% / n--> opacity (in contrast to <img src="https://latex.codecogs.com/svg.latex?100%25" /><!--100%--> opacity).
   - Keep in mind that if you have overlaying objects, you have to preserve the layering of them. One way would be to not render the objects in each of the sub-steps, but only save their positions/rotations from each of the sub-steps, and then render after all steps with the right layering.
 + technique 2:
   - Apply motion blur in post-processing on the rendered frame.
