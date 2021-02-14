@@ -1,4 +1,4 @@
-const util = {
+window.util = {
 
     forEachPair(array, callback) {
         for (let i = 0; i < array.length; i++) {  // loop every item

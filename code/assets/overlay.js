@@ -10,7 +10,7 @@
  * @param {Array<Program>} programs
  */
 
-function configureOverlay(programs) {
+window.configureOverlay = function (programs) {
 
     // launch the default program (if specified)
     let defaultProgram = programs.filter(p => p.isDefaultProgram)[0];
@@ -35,4 +35,4 @@ function configureOverlay(programs) {
         overlay.appendChild(programButton);
     }
     document.body.appendChild(overlay);
-}
+};

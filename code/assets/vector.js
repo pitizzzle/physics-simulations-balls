@@ -4,7 +4,7 @@
 */
 
 
-const Vector = {
+window.Vector = {
 
     /**
      * @param {Array<number>} vec 
