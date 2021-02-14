@@ -56,8 +56,8 @@ const ball = {
     m: 1,
 };
 
-const F_x = Math.random() * 2 - 1;  // random value in interval [-1; 1)
-const F_y = Math.random() * 2 - 1;  //
+const F_x = Math.random() * 0.4 - 0.2;  // random value in interval [-0.2; 0.2)
+const F_y = Math.random() * 0.4 - 0.2;  //
 
 function simulateOneStep(dt) {
     const a_x = F_x / ball.m;

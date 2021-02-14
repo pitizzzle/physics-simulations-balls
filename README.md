@@ -2,6 +2,8 @@
 
 Understand the concepts, equations and code needed for simulating the movement and collisions of balls.
 
+<div align="center"><img src="img/level-6-billiard-example.gif" alt="level-6-billiard-example" width="500"/></div>
+
 <br>
 
 | | | | |

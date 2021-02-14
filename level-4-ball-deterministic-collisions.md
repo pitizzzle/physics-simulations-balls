@@ -205,7 +205,7 @@ function simulateOneStep(dt) {
             const v_js = Vector.scale(s, v_js_value);
 
             const v_it = Vector.subtract(v_i, v_is);
-            const v_jt = Vector.subtract(v_j, v_js;
+            const v_jt = Vector.subtract(v_j, v_js);
 
             const vˈ_is_value = (
                 v_is_value * (i.m -j.m) + 2 * j.m * v_js_value
@@ -265,7 +265,7 @@ function forEachPair(array, callback) {
 
 ## collision problems
 + Glitcheees <3
-  <div align="center">[SMALL GIF, 411x210, 1subStep, vx 8]</div>
+  <div align="center"><img src="img/level-4-billiard-glitch.gif" alt="level-4-billiard-glitch" width="500"/></div>
 
 <br>
 
@@ -412,7 +412,7 @@ function simulateOneStep(dt) {
 ## inaccuracy problem
 + (1) Collisions of multiple balls at once are not realistic in the current simulation.
   - In this example the balls should actually move on symmetric paths. But they don't.
-  <div align="center">[SMALL GIF, kick-off]</div>
+  <div align="center"><img src="img/level-4-unsymmetric-billiard-kick-off.gif" alt="level-4-unsymmetric-billiard-kick-off" width="500" /></div>
 + Reason:
   - In our simulation, we process collision sequentially (one after another). This "The Last Collision Wins" rule explains why the balls aren't moving symmetrically right from the start.
 + Weakening Factor:

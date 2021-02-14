@@ -23,7 +23,7 @@
 + (2/3) Drag:
   - https://en.wikipedia.org/wiki/Drag_equation
   - $F_R = \mu \cdot v^2 \quad$ (if you don't want size to play a role)
-  - $F_R = \mu \cdot v^2 \cdot m^{-1} \quad$ (if you don't want size or mass to play a role)
+  - $F_R = \mu \cdot v^2 \cdot m \quad$ (if you don't want size or mass to play a role)
   - $F_R = \mu \cdot v^2 \cdot r \quad$ (if you have a puck)
   - $F_R = \mu \cdot v^2 \cdot r^2 \quad$ (if you have a ball)
     <br>
@@ -57,32 +57,12 @@ $$
 
 $$
 \begin{aligned}
-v_i &= \sqrt{v_{i,x}^{\,2} + v_{i,y}^{\,2}}\\[4pt]
+v_i &= \sqrt{v_{i,x}^{\,2} + v_{i,y}^{\,2}} + 0.000001 \quad\begin{gathered}\text{\small\color{gray}(prevent division}\\[-4pt] \text{\small\color{gray}with zero later)}\end{gathered}\\[4pt]
 F_R &= \mu \cdot v_i^2 \cdot m_i^{-1} \\[4pt]
 F'''_{i,x} &= F''_{i,x} - \dfrac{v_{i,x}}{v_i} \cdot F_R\\[8pt]
 F'''_{i,y} &= F''_{i,y} - \dfrac{v_{i,y}}{v_i} \cdot F_R\\[8pt]
 \end{aligned}
 $$
-
-$$
-\text{--------- time step ---------}
-$$
-
-$$
-\text{\small\color{gray} (for every ball i, except the one with mouse constraint, ...)}
-$$
-
-$$
-\text{\small\color{gray} (new acceleration, which is constant during the time step)}
-$$
-
-$$
-\begin{aligned}
-a'_{i,x} &= \frac{F'''_{i,x}}{m}\\[8pt]
-a'_{i,y} &= \frac{F'''_{i,y}}{m}\\[8pt]
-\end{aligned}
-$$
-
 
 <br>
 
@@ -117,13 +97,13 @@ const balls = [
         x: -100,
         y: -100,
         r: 15,
-        color: 'black',
+        color: 'red',
     },
 
 ];
 
-const k = 0.1;  // spring stiffness
-const mu = 0.275 /* XXX */;  // drag friction coefficient
+const k = 5;  // spring stiffness
+const mu = 0.0005;  // drag friction coefficient
 
 function simulateOneStep(dt) {
 
@@ -133,25 +113,26 @@ function simulateOneStep(dt) {
         if (ball.isMouseConstrained) {
             continue;
         }
-        const v = Math.sqrt(ball.v_x ** 2 + ball.v_y ** 2);
-        const F_R = mu * v**2 / ball.m;
+        const v = Math.sqrt(ball.v_x ** 2 + ball.v_y ** 2) + 0.000001;  // '+0.000001' prevents division with zero later
+        const F_R = mu * v**2 * ball.m;
         ball.F_x -= ball.v_x / v * F_R;
         ball.F_y -= ball.v_y / v * F_R;
         const a_x = ball.F_x / ball.m;
         const a_y = ball.F_y / ball.m;
-        ball.v_x += dt * ball.a_x;
-        ball.v_y += dt * ball.a_y;
-        ball.v_x *= dt * mu;
-        ball.v_y *= dt * mu;
+        ball.v_x += dt * a_x;
+        ball.v_y += dt * a_y;
         ball.x += dt * ball.v_x;
         ball.y += dt * ball.v_y;
     }
 }
 
 function onMouseMove(newMouseX, newMouseY) {
-    const ball = balls.filter(ball => ball.isMouseConstrained)[0];
-    ball.x = newMouseX;
-    ball.y = newMouseY;
+    for (let ball of balls) {
+        if (ball.isMouseConstrained) {
+            ball.x = newMouseX;
+            ball.y = newMouseY;
+        }
+    }
 }
 ```
 

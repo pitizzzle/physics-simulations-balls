@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Level 2 - Accelerated Motion (physics-simulations-balls)</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <canvas></canvas>
+
+        <script src="assets/canvas.js"></script>
+        <script src="assets/overlay.js"></script>
+        <script src="assets/timingManager.js"></script>
+        <script>
+            configureOverlay([
+                {
+                    buttonLabel: 'Simple Time Step Equations',
+                    isDefaultProgram: true,
+                    callback_setup: function () {
+
+                        const ball = {
+                            x: 0.5 * canvas.w,  // center of canvas
+                            y: 0.5 * canvas.h,  //
+                            v_x: 0,  // initially stationary
+                            v_y: 0,  //
+                            m: 1,
+                        };
+
+                        const F_x = Math.random() * 0.4 - 0.2;  // random value in interval [-0.2; 0.2)
+                        const F_y = Math.random() * 0.4 - 0.2;  //
+
+                        configureTimingManager({
+
+                            callback_simulateOneStep: function (dt) {
+                                const a_x = F_x / ball.m;
+                                const a_y = F_y / ball.m;
+                                ball.v_x += dt * a_x;
+                                ball.v_y += dt * a_y;
+                                ball.x += dt * ball.v_x;
+                                ball.y += dt * ball.v_y;
+                            },
+
+                            callback_renderFrame: function () {
+                                canvas.clear();
+                                canvas.fillCircle(ball.x, ball.y, 15, 'red');
+                            },
+
+                            subSteps_perFrame: 1,  // multi--sub-step-precision is only useful for collisions
+
+                        });
+                    },
+                },
+                {
+                    buttonLabel: 'Averaged Velocity',
+                    isDefaultProgram: false,
+                    callback_setup() {
+
+                        const ball = {
+                            x: 0.5 * canvas.w,  // center of canvas
+                            y: 0.5 * canvas.h,  //
+                            v_x: 0,  // initially stationary
+                            v_y: 0,  //
+                            m: 1,
+                        };
+
+                        const F_x = Math.random() * 0.4 - 0.2;  // random value in interval [-0.2; 0.2)
+                        const F_y = Math.random() * 0.4 - 0.2;  //
+
+                        configureTimingManager({
+
+                            callback_simulateOneStep: function (dt) {
+                                const a_x = F_x / ball.m;
+                                const a_y = F_y / ball.m;
+                                const v_x_old = ball.v_x;
+                                const v_y_old = ball.v_y;
+                                ball.v_x += dt * a_x;
+                                ball.v_y += dt * a_y;
+                                ball.x += dt * 0.5 * (v_x_old + ball.v_x);
+                                ball.y += dt * 0.5 * (v_y_old + ball.v_y);
+                            },
+
+                            callback_renderFrame: function () {
+                                canvas.clear();
+                                canvas.fillCircle(ball.x, ball.y, 15, 'red');
+                            },
+
+                            subSteps_perFrame: 1,  // multi-sub-step-precision is only useful for collisions
+
+                        });
+                    },
+                },
+            ]);
+        </script>
+    </body>
+</html>

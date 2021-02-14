@@ -4,7 +4,6 @@
  * @property {string} buttonLabel
  * @property {boolean} isDefaultProgram
  * @property {Function} callback_setup
- * @property {Function} callback_deconstruct
  */
 
 /**
@@ -13,20 +12,11 @@
 
 function configureOverlay(programs) {
 
-    let activeProgram;
-
-    function launchProgram(program) {
-        if (activeProgram) {  // deconstruct currently still running program
-            activeProgram.callback_deconstruct();
-        }
-        activeProgram = program;
-        activeProgram.callback_setup();
-    }
-
     // launch the default program (if specified)
     let defaultProgram = programs.filter(p => p.isDefaultProgram)[0];
     if (defaultProgram) {
-        launchProgram(defaultProgram);
+        console.log(`start default program: "${defaultProgram.buttonLabel}"`);
+        defaultProgram.callback_setup();
     }
     else {
         console.log(`warning: you have not specified a default program`);
@@ -37,9 +27,10 @@ function configureOverlay(programs) {
     overlay.id = 'overlay';  // needed for css stylesheet selector 'div#overlay'
     for (let p of programs) {
         const programButton = document.createElement('button');
-        programButton.innerHTML = p.isDefaultProgram ? `⭐ ${p.buttonLabel} ⭐` : p.buttonLabel;
+        programButton.innerHTML = p.isDefaultProgram ? `★ ${p.buttonLabel} ★` : p.buttonLabel;
         programButton.addEventListener('click', () => {
-            launchProgram(p);
+            console.log(`start program: "${p.buttonLabel}"`);
+            p.callback_setup();
         });
         overlay.appendChild(programButton);
     }

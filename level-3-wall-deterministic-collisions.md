@@ -120,7 +120,7 @@ const ball = {
     r: 15,
 };
 
-const g = 0.5;  // gravity constant
+const g = 0.7;  // gravity constant
 
 function simulateOneStep(dt) {
     const F_x = 0;
@@ -207,6 +207,7 @@ function simulateOneStep(dt) {
     const v_y_old = ball.v_y;
     ball.v_x += dt * a_x;
     ball.v_y += dt * a_y;
+    
     ball.x += dt * 0.5 * (v_x_old + ball.v_x);
     ball.y += dt * 0.5 * (v_y_old + ball.v_y);
 

@@ -7,8 +7,9 @@ v(t) &= g \cdot t
 \end{aligned}
 $$
 + But in more complex simulations the position and velocity of a moving object depend on the interactions it has with its environment, whose results we most oftenly can't easily express as a function of time.
-  - Example: If we simulate the balls on a billiard table (like we will do from level 4 and on), the collisions between the balls are too complex and interrelated to be able to predict the position of each ball as a function of time.
-  - [BILLIARD GIF]
+  - Example: If we simulate the balls on a billiard table (like we will do, starting in level 4), the collisions between the balls are too complex and interrelated to be able to predict the position of each ball as a function of time.
+  <div align="center"><img src="img/level-6-billiard-example.gif" alt="level-6-billiard-example" width="420" /></div>
+
 + The universal approach to such complex simulations is breaking it up into small incremental **time steps** (eg. time steps of length 1 millisecond).
 
   <div align="center"><img src="img/level-0-time-step-diagram.svg" alt="level-0-time-step-diagram" width="420" /></div>
@@ -19,6 +20,8 @@ $$
   * (1. Approxim.) The motion update which happens during each time step is free/uninterrupted from any interactions/collisions. Only after (or before) the motion update in each time step we check for and execute updates for any interactions/collisions. This eliminates the complex interrelation of motion and interactions/collisions. We simply divide it into to distinct procedures.
   * (2. Approxim.) Physical variables like the velocity or the acceleration of an object may be assumed to be constant during a time step, because they should not change much during such small time anyway.
 + Because of these two approximations, our simulations are not 100% accurate. But they're pretty close. And the smaller the time steps, the more accurate the approximation.
++ To get the time steps really small, you will often want to have more than one time step per frame, because your render frame rate is typically only 60Hz or lower.
+  - In our code examples we use a fixed number of **sub-steps** per frame, eg. 20 sub-steps per frame.
 + And finally one last thing. There are different "styles" of updating the physical variables of objects like position, velocity and acceleration with the time step equations. I call them "styles" because all of them are just approximations.
   - A common difference between these styles of updating motion in the time step equations is whether they assume forces and velocities to be strictly constant during the time step or if they actually take some kind of averaging approach, for example assuming the physical variables change linearly from one state to another.
   - Don't worry about this, for now. This concept will be revisited a couple of times.

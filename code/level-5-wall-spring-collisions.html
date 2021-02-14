@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Level 5 - Wall Spring Collisions (physics-simulations-balls)</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <canvas></canvas>
+
+        <script src="assets/canvas.js"></script>
+        <script src="assets/overlay.js"></script>
+        <script src="assets/timingManager.js"></script>
+        <script>
+
+            configureOverlay([
+                {
+                    buttonLabel: 'Simple Time Step Equations',
+                    isDefaultProgram: true,
+                    callback_setup: function () {
+
+                        const ball = {
+                            x: 0.5 * canvas.w,  // horizontally centered
+                            y: 0.2 * canvas.h,  // at the top
+                            v_x: 0,  // initially stationary
+                            v_y: 0,  //
+                            m: 1,
+                            r: 15,
+                        };
+
+                        const g = 0.7;  // gravity constant
+                        const k = 5;  // spring stiffness
+
+                        configureTimingManager({
+
+                            callback_simulateOneStep: function (dt) {
+
+                                ball.F_x = 0;           // reset/initialize
+                                ball.F_y = ball.m * g;  //
+
+                                if (ball.x - ball.r < 0) {
+                                    ball.F_x -= (ball.x - ball.r) * k;
+                                }
+                                if (ball.x + ball.r - canvas.w > 0) {
+                                    ball.F_x -= (ball.x + ball.r - canvas.w) * k;
+                                }
+                                if (ball.y - ball.r < 0) {
+                                    ball.F_y -= (ball.y - ball.r) * k;
+                                }
+                                if (ball.y + ball.r - canvas.h > 0) {
+                                    ball.F_y -= (ball.y + ball.r - canvas.h) * k;
+                                }
+
+                                const a_x = ball.F_x / ball.m;
+                                const a_y = ball.F_y / ball.m;
+                                ball.v_x += dt * a_x;
+                                ball.v_y += dt * a_y;
+                                ball.x += dt * ball.v_x;
+                                ball.y += dt * ball.v_y;
+                            },
+
+                            callback_renderFrame: function () {
+                                canvas.clear();
+                                canvas.fillCircle(ball.x, ball.y, ball.r, 'red');
+                            },
+
+                            subSteps_perFrame: 20,  // sup-step-precision has the effect that collisions are detected earlier and more precisely
+
+                        });
+                    },
+                },
+
+
+
+                {
+                    buttonLabel: 'Averaged Velocity',
+                    isDefaultProgram: false,
+                    callback_setup: function () {
+
+                        const ball = {
+                            x: 0.5 * canvas.w,  // horizontally centered
+                            y: 0.2 * canvas.h,  // at the top
+                            v_x: 0,  // initially stationary
+                            v_y: 0,  //
+                            m: 1,
+                            r: 15,
+                        };
+
+                        const g = 0.7;  // gravity constant
+                        const k = 5;  // spring stiffness
+
+                        configureTimingManager({
+
+                            callback_simulateOneStep: function (dt) {
+
+                                ball.F_x = 0;           // reset/initialize
+                                ball.F_y = ball.m * g;  //
+
+                                if (ball.x - ball.r < 0) {
+                                    ball.F_x -= (ball.x - ball.r) * k;
+                                }
+                                if (ball.x + ball.r - canvas.w > 0) {
+                                    ball.F_x -= (ball.x + ball.r - canvas.w) * k;
+                                }
+                                if (ball.y - ball.r < 0) {
+                                    ball.F_y -= (ball.y - ball.r) * k;
+                                }
+                                if (ball.y + ball.r - canvas.h > 0) {
+                                    ball.F_y -= (ball.y + ball.r - canvas.h) * k;
+                                }
+
+                                const a_x = ball.F_x / ball.m;
+                                const a_y = ball.F_y / ball.m;
+                                const v_x_old = ball.v_x;
+                                const v_y_old = ball.v_y;
+                                ball.v_x += dt * a_x;
+                                ball.v_y += dt * a_y;
+                                ball.x += dt * 0.5 * (v_x_old + ball.v_x);
+                                ball.y += dt * 0.5 * (v_y_old + ball.v_y);
+                            },
+
+                            callback_renderFrame: function () {
+                                canvas.clear();
+                                canvas.fillCircle(ball.x, ball.y, ball.r, 'red');
+                            },
+
+                            subSteps_perFrame: 20,  // sup-step-precision has the effect that collisions are detected earlier and more precisely
+
+                        });
+                    },
+                },
+
+
+                {
+                    buttonLabel: 'Averaged Velocity & Acceleration',
+                    isDefaultProgram: false,
+                    callback_setup: function () {
+
+                        const ball = {
+                            x: 0.5 * canvas.w,  // horizontally centered
+                            y: 0.2 * canvas.h,  // at the top
+                            v_x: 0,  // initially stationary
+                            v_y: 0,  //
+                            m: 1,
+                            r: 15,
+                        };
+
+                        const g = 0.7;  // gravity constant
+                        const k = 5;  // spring stiffness
+
+                        configureTimingManager({
+
+                            callback_simulateOneStep: function (dt) {
+
+                                const F_x_old = ball.F_x || 0;
+                                const F_y_old = ball.F_y || 0;
+
+                                ball.F_x = 0;           // reset/initialize
+                                ball.F_y = ball.m * g;  //
+
+                                if (ball.x - ball.r < 0) {
+                                    ball.F_x -= (ball.x - ball.r) * k;
+                                }
+                                if (ball.x + ball.r - canvas.w > 0) {
+                                    ball.F_x -= (ball.x + ball.r - canvas.w) * k;
+                                }
+                                if (ball.y - ball.r < 0) {
+                                    ball.F_y -= (ball.y - ball.r) * k;
+                                }
+                                if (ball.y + ball.r - canvas.h > 0) {
+                                    ball.F_y -= (ball.y + ball.r - canvas.h) * k;
+                                }
+
+                                const a_x = ball.F_x / ball.m;
+                                const a_y = ball.F_y / ball.m;
+
+                                const a_x_old = F_x_old / ball.m;
+                                const a_y_old = F_y_old / ball.m;
+                                const v_x_old = ball.v_x;
+                                const v_y_old = ball.v_y;
+                                ball.v_x += dt * 0.5 * (a_x_old + a_x);
+                                ball.v_y += dt * 0.5 * (a_y_old + a_y);
+
+                                ball.x += dt * 0.5 * (v_x_old + ball.v_x);
+                                ball.y += dt * 0.5 * (v_y_old + ball.v_y);
+                            },
+
+                            callback_renderFrame: function () {
+                                canvas.clear();
+                                canvas.fillCircle(ball.x, ball.y, ball.r, 'red');
+                            },
+
+                            subSteps_perFrame: 20,  // sup-step-precision has the effect that collisions are detected earlier and more precisely
+
+                        });
+                    },
+                },
+
+
+
+                {
+                    buttonLabel: 'Predicted Acceleraton',
+                    isDefaultProgram: false,
+                    callback_setup: function () {
+
+                        const ball = {
+                            x: 0.5 * canvas.w,  // horizontally centered
+                            y: 0.2 * canvas.h,  // at the top
+                            v_x: 0,  // initially stationary
+                            v_y: 0,  //
+                            m: 1,
+                            r: 15,
+                        };
+
+                        const g = 0.7;  // gravity constant
+                        const k = 5;  // spring stiffness
+
+                        configureTimingManager({
+
+                            callback_simulateOneStep: function (dt) {
+
+                                const F_x_old = ball.F_x || 0;
+                                const F_y_old = ball.F_y || 0;
+
+                                ball.F_x = 0;           // reset/initialize
+                                ball.F_y = ball.m * g;  //
+
+                                if (ball.x - ball.r < 0) {
+                                    ball.F_x -= (ball.x - ball.r) * k;
+                                }
+                                if (ball.x + ball.r - canvas.w > 0) {
+                                    ball.F_x -= (ball.x + ball.r - canvas.w) * k;
+                                }
+                                if (ball.y - ball.r < 0) {
+                                    ball.F_y -= (ball.y - ball.r) * k;
+                                }
+                                if (ball.y + ball.r - canvas.h > 0) {
+                                    ball.F_y -= (ball.y + ball.r - canvas.h) * k;
+                                }
+
+                                const a_x = ball.F_x / ball.m;
+                                const a_y = ball.F_y / ball.m;
+
+                                const a_x_old = F_x_old / ball.m;
+                                const a_y_old = F_y_old / ball.m;
+                                const a_x_next_prediction = a_x + (a_x - a_x_old);
+                                const a_y_next_prediction = a_y + (a_y - a_y_old);
+                                const v_x_old = ball.v_x;
+                                const v_y_old = ball.v_y;
+                                ball.v_x += dt * 0.5 * (a_x + a_x_next_prediction);
+                                ball.v_y += dt * 0.5 * (a_y + a_y_next_prediction);
+
+                                ball.x += dt * ball.v_x;
+                                ball.y += dt * ball.v_y;
+                            },
+
+                            callback_renderFrame: function () {
+                                canvas.clear();
+                                canvas.fillCircle(ball.x, ball.y, ball.r, 'red');
+                            },
+
+                            subSteps_perFrame: 20,  // sup-step-precision has the effect that collisions are detected earlier and more precisely
+
+                        });
+                    },
+                },
+            ]);
+
+        </script>
+    </body>
+</html>

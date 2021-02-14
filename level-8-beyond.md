@@ -29,6 +29,17 @@
 <br>
 
 
+#### interpolating the movement of the user's mouse
++ This highly increases precision and user friendliness of mouse constraints.
++ Without interpolating the user's mouse position, the posisition jumps from one point to the next, even if all the balls are simulated using 20 sub steps per frame or so, which can result in weird behavior.
+  - For example, if you move your mouse fast enough you can warp trough another object without colliding with it xD.
+  - When you interpolate the user's mouse position, this can't happen anymore.
++ Interpolating the user's mouse position means that in each of your sub steps for a frame you interpolate between the current mouse position and the mouse position before that.
+  - For this to work you will have to delay the mouse positions that you give your simulation.
+
+<br>
+
+
 #### dealing with more complex objects like rectangles or even arbitrary polygons, torque simulation, path constraints
 + If you want to understand it yourself..
   - Erik Neumann has assembled explanations and code for almost every simulation you can think of, including arbitrary polygons and r (see [this example](https://www.myphysicslab.com/engine2D/pendulum-clock-en.html)) and torque simulation, and path constraints. Great work!

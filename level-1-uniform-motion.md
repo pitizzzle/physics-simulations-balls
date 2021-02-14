@@ -33,10 +33,9 @@ $$
 const ball = {
     x: 0,
     y: 0,
+    vx: 1.5,
+    vy: 3.0,
 };
-
-const v_x = 1;
-const v_y = 2;
 
 function simulateOneStep(dt) {
     ball.x += dt * ball.v_x;

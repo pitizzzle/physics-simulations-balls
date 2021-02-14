@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Level 6 - Ball Spring Collisions (physics-simulations-balls)</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <canvas></canvas>
+
+        <script src="assets/util.js"></script>
+        <script src="assets/canvas.js"></script>
+        <script src="assets/timingManager.js"></script>
+        <script>
+
+
+            const defaultBall = {
+                x: canvas.w / 2,
+                y: canvas.h / 2,
+                v_x: 0,
+                v_y: 0,
+                r: 10,
+                m: 1,
+                color: 'red',
+            };
+
+            const balls = [
+                {
+                    ...defaultBall,
+                    x: 30,
+                    y: canvas.h / 2,
+                    v_x: 8,
+                    color: '#E91E63',
+                },
+                {
+                    ...defaultBall,
+                    x: canvas.w - 50 - 61,
+                    y: canvas.h / 2,
+                    color: '#009688',
+                },
+                {
+                    ...defaultBall,
+                    x: canvas.w - 50 - 44,
+                    y: canvas.h / 2 - 11,
+                    color: '#FF9800',
+                },
+                {
+                    ...defaultBall,
+                    x: canvas.w - 50 - 44,
+                    y: canvas.h / 2 + 11,
+                    color: '#2196F3',
+                },
+                {
+                    ...defaultBall,
+                    x: canvas.w - 50 - 27,
+                    y: canvas.h / 2,
+                    color: '#FFC107',
+                },
+                {
+                    ...defaultBall,
+                    x: canvas.w - 50 - 10,
+                    y: canvas.h / 2 - 11,
+                    color: '#333333',
+                },
+                {
+                    ...defaultBall,
+                    x: canvas.w - 50 - 10,
+                    y: canvas.h / 2 + 11,
+                    color: '#00BCD4',
+                },
+            ];
+
+            const k = 5;  // spring stiffness
+
+            configureTimingManager({
+
+                callback_simulateOneStep: function (dt) {
+
+                    for (let ball of balls) {
+                        ball.F_x = ball.F_y = 0;  // reset/initialize
+                    }
+
+                    util.forEachPair(balls, (i, j) => {
+                        const d_x = i.x - j.x;
+                        const d_y = i.y - j.y;
+                        const d = Math.sqrt(d_x ** 2 + d_y ** 2) + 0.000001;  // '+0.000001' prevents division with zero later
+                        const s = i.r + j.r - d;
+                        if (0 < s) {
+                            i.F_x += s * k * (d_x / d);
+                            i.F_y += s * k * (d_y / d);
+                            j.F_x -= s * k * (d_x / d);
+                            j.F_y -= s * k * (d_y / d);
+                        }
+                    });
+                    for (let ball of balls) {
+                        if (ball.x - ball.r < 0) {
+                            ball.F_x -= (ball.x - ball.r) * k;
+                        }
+                        if (ball.x + ball.r - canvas.w > 0) {
+                            ball.F_x -= (ball.x + ball.r - canvas.w) * k;
+                        }
+                        if (ball.y - ball.r < 0) {
+                            ball.F_y -= (ball.y - ball.r) * k;
+                        }
+                        if (ball.y + ball.r - canvas.h > 0) {
+                            ball.F_y -= (ball.y + ball.r - canvas.h) * k;
+                        }
+                    }
+
+                    for (let ball of balls) {
+                        const a_x = ball.F_x / ball.m;
+                        const a_y = ball.F_y / ball.m;
+                        ball.v_x += dt * a_x;
+                        ball.v_y += dt * a_y;
+                        ball.x += dt * ball.v_x;
+                        ball.y += dt * ball.v_y;
+                    }
+                },
+
+                callback_renderFrame: function () {
+                    canvas.clear();
+                    for (let ball of balls) {
+                        canvas.fillCircle(ball.x, ball.y, ball.r, ball.color);
+                    }
+                },
+
+                subSteps_perFrame: 20,  // sup-step-precision has the effect that collisions are detected earlier and more precisely
+
+            });
+
+        </script>
+    </body>
+</html>

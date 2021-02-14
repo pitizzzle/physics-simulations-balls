@@ -163,8 +163,8 @@ const ball = {
     r: 15,
 };
 
-const g = 0.5;  // gravity constant
-const k = 0.1;  // spring stiffness
+const g = 0.7;  // gravity constant
+const k = 5;  // spring stiffness
 
 function simulateOneStep(dt) {
 
@@ -174,22 +174,22 @@ function simulateOneStep(dt) {
     if (ball.x - ball.r < 0) {
         ball.F_x -= (ball.x - ball.r) * k;
     }
-    if (ball.x + ball.r - w > 0) {
-        ball.F_x -= (ball.x + ball.r - w) * k;
+    if (ball.x + ball.r - canvas.w > 0) {
+        ball.F_x -= (ball.x + ball.r - canvas.w) * k;
     }
     if (ball.y - ball.r < 0) {
         ball.F_y -= (ball.y - ball.r) * k;
     }
-    if (ball.y + ball.r - h > 0) {
-        ball.F_y -= (ball.y + ball.r - h) * k;
+    if (ball.y + ball.r - canvas.h > 0) {
+        ball.F_y -= (ball.y + ball.r - canvas.h) * k;
     }
 
     const a_x = ball.F_x / ball.m;
     const a_y = ball.F_y / ball.m;
     ball.v_x += dt * a_x;
     ball.v_y += dt * a_y;
-    ball.x += dt * ball.vx;
-    ball.y += dt * ball.vy;
+    ball.x += dt * ball.v_x;
+    ball.y += dt * ball.v_y;
 }
 ```
 
@@ -200,27 +200,105 @@ function simulateOneStep(dt) {
 ## discussion of the time step equations
 + In this level we have utilized the most simple time step equations, like initially in level 2 and level 3.
   - We compute a new acceleration, with that compute the velocity after the time step, and then compute the new position, assuming that the new velocity is already constantly present during the time step itself.
-+ However, unlike in level 2 or level 3, where using the average velocity to update the position is beneficial or even required, we must not use it for spring collisions.
+
++ However, unlike in level 2 or level 3, where using the average velocity to update the position is beneficial or even required, we MUST NOT USE IT for spring collisions.
   - Reason 1 (minor): We can't argue anymore that averaging the velocity would slightly increase accuracy. This is because acceleration is not strictly constant anymore (in collisions the acceleration changes dynamically). And with dynamically changing acceleration, assuming the acceleration to be constant during a time step is already such a big approximation that it would be hilarious to say that avering the velocity would significantly increase accuracy.
-  - Reason 2 (important): Spring collisions are really sensitive to the time step equations (similar to the ball jumping lower and lower in level 3). The ball would actually jump higher and higher if we used the average velocity to update the ball's position.
-  <div align="center">[GIF of ball jumping too high and out of bounds]</div><br>
+  - Reason 2 (important): Spring collisions are really sensitive to the time step equations (similar to the ball jumping lower and lower in level 3). The ball would actually jump higher and higher if we used the average velocity to update the ball's position. This is explained in the next paragraph.
+  $$
+  \begin{aligned}
+  a'_x &= \frac{F''_x}{m}\\[8pt]
+  a'_y &= \frac{F''_y}{m}\\[8pt]
+  v'_x &= v_x + dv_x  &  &\leftarrow  &  dv_x &= dt \cdot a'_x\\[4pt]
+  v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a'_y\\[4pt]
+  x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \dfrac{v_x + v'_x}{2}\\[8pt]
+  y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \dfrac{v_y + v'_y}{2}\\[8pt]
+  \end{aligned}
+  $$
+  ```js
+  const a_x = ball.F_x / ball.m;
+  const a_y = ball.F_y / ball.m;
+  const v_x_old = ball.v_x;
+  const v_y_old = ball.v_y;
+  ball.v_x += dt * a_x;
+  ball.v_y += dt * a_y;
+  ball.x += dt * 0.5 * (v_x_old + ball.v_x);
+  ball.y += dt * 0.5 * (v_y_old + ball.v_y);
+  ```
+  <div align="center"><img src="img/level-5-jumping-too-high.gif" alt="level-5-jumping-too-high" width="400" /></div><br>
 
 + Explanation for Reason 2 and the influence of delayed velocity:
   - If we update the position of the ball with the averaged velocity, the ball is always updated with a slightly older velocity than if we only took the new velocity. It seems like this slightly older velocity results in the ball falling deeper into the ground than it should, resulting in larger accelerations on the ball, resulting in the fact that ball jumps up again with a higher velocity than it approached with.
   - If we stick to the time step equations from above, we don't have a delayed velocity, because we assume the new velocity after time step to be already constantly present during the time step itself.
+  <br>
+
 + This theory of delayed velocity can be evidenced by two experiments:
   - (1) Delaying the the velocity used to update the ball's position even further, and obverserving that the ball gains even more speed on each collision.
     * The theory would explain this like that: "Because of the delayed velocity used to update the ball's position, the ball falls deeper into the ground and receives more upward acceleration."
     $$
-    EQUATIONS
+    \begin{aligned}
+    a'_x &= \frac{F''_x}{m}\\[8pt]
+    a'_y &= \frac{F''_y}{m}\\[8pt]
+    v'_x &= v_x + dv_x  &  &\leftarrow  &  dv_x &= dt \cdot \dfrac{a_x + a'_x}{2}\\[8pt]
+    v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot \dfrac{a_y + a'_y}{2}\\[8pt]
+    x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \dfrac{v_x + v'_x}{2}\\[8pt]
+    y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \dfrac{v_y + v'_y}{2}\\[8pt]
+    \end{aligned}
     $$
-    <div align="center">[GIF of ball jumping too high and out of bounds (SUPER-CHARGED)]</div>
-  - (2) Anti-delaying the velocity used to update the ball's position, and observing that the ball actually loses speed with every collision.
+    ```js
+    const F_x_old = ball.F_x;
+    const F_y_old = ball.F_y;
+
+    // ...
+
+    const a_x = ball.F_x / ball.m;
+    const a_y = ball.F_y / ball.m;
+
+    const a_x_old = F_x_old / ball.m;
+    const a_y_old = F_y_old / ball.m;
+    const v_x_old = ball.v_x;
+    const v_y_old = ball.v_y;
+    ball.v_x += dt * 0.5 * (a_x_old + a_x);
+    ball.v_y += dt * 0.5 * (a_y_old + a_y);
+    
+    ball.x += dt * 0.5 * (v_x_old + ball.v_x);
+    ball.y += dt * 0.5 * (v_y_old + ball.v_y);
+    ```
+    <div align="center"><img src="img/level-5-jumping-way-too-high.gif" alt="level-5-jumping-way-too-high" width="400" /></div><br>
+
+  - (2) Anti-delaying the velocity used to update the ball's position, by predicting the next acceleration and using the average acceleration to update the velocity, and observing that the ball actually loses speed with every collision.
     * The theory would explain this like that: "Because of the anti-delayed velocity used to update ball's position, the ball quickly responds to the collision force and already leaves the ground before having gained full speed again."
-    $$
-    EQUATIONS
-    $$
-    <div align="center">[GIF of ball jumping lower and lower (SUB-CHARGED)]</div>
+    <!--$$
+    \begin{aligned}
+    a'_x &= \frac{F''_x}{m}\\[8pt]
+    a'_y &= \frac{F''_y}{m}\\[8pt]
+    v'_x &= v_x + dv_x  &  &\leftarrow  &  dv_x &= dt \cdot \dfrac{a_x + a'_x}{2}\\[8pt]
+    v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot \dfrac{a_y + a'_y}{2}\\[8pt]
+    x' &= x + dx  &  &\leftarrow  &  dx&= dt \cdot \dfrac{v_x + v'_x}{2}\\[8pt]
+    y' &= y + dy  &  &\leftarrow  &  dy&= dt \cdot \dfrac{v_y + v'_y}{2}\\[8pt]
+    \end{aligned}
+    $$-->
+    ```js
+    const F_x_old = ball.F_x;
+    const F_y_old = ball.F_y;
+
+    // ...
+
+    const a_x = ball.F_x / ball.m;
+    const a_y = ball.F_y / ball.m;
+
+    const a_x_old = F_x_old / ball.m;
+    const a_y_old = F_y_old / ball.m;
+    const a_x_next_prediction = a_x + (a_x - a_x_old);
+    const a_y_next_prediction = a_y + (a_y - a_y_old);
+    const v_x_old = ball.v_x;
+    const v_y_old = ball.v_y;
+    ball.v_x += dt * 0.5 * (a_x + a_x_next_prediction);
+    ball.v_y += dt * 0.5 * (a_y + a_y_next_prediction);
+
+    ball.x += dt * ball.v_x;
+    ball.y += dt * ball.v_y;
+    ```
+    <div align="center"><img src="img/level-5-jumping-too-low.gif" alt="level-5-jumping-too-low" width="400" /></div>
 
 <br>
 

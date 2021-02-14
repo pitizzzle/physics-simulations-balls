@@ -49,7 +49,7 @@ $$
 \begin{aligned}
 d_x &= x_j - x_i\\
 d_y &= y_j - y_i\\
-d &= \sqrt{d_x^{\,2} + d_y^{\,2}}\\
+d &= \sqrt{d_x^{\,2} + d_y^{\,2}} + 0.000001 \quad\begin{gathered}\text{\small\color{gray}(prevent division}\\[-4pt] \text{\small\color{gray}with zero later)}\end{gathered}\\
 s &= r_i + r_j - d\\
 \end{aligned}
 $$
@@ -214,7 +214,7 @@ const balls = [
 
 ];
 
-const k = 0.1;  // spring stiffness
+const k = 5;  // spring stiffness
 
 function simulateOneStep(dt) {
 
@@ -225,7 +225,7 @@ function simulateOneStep(dt) {
     forEachPair(balls, (i, j) => {
         const d_x = i.x - j.x;
         const d_y = i.y - j.y;
-        const d = Math.sqrt(d_x ** 2 + d_y ** 2);
+        const d = Math.sqrt(d_x ** 2 + d_y ** 2) + 0.000001;  // '+0.000001' prevents division with zero later
         const s = i.r + j.r - d;
         if (0 < s) {
             i.F_x += s * k * (d_x / d);
@@ -238,22 +238,22 @@ function simulateOneStep(dt) {
         if (ball.x - ball.r < 0) {
             ball.F_x -= (ball.x - ball.r) * k;
         }
-        if (ball.x + ball.r - w > 0) {
-            ball.F_x -= (ball.x + ball.r - w) * k;
+        if (ball.x + ball.r - canvas.w > 0) {
+            ball.F_x -= (ball.x + ball.r - canvas.w) * k;
         }
         if (ball.y - ball.r < 0) {
-            ball.Fvy -= (ball.y - ball.r) * k;
+            ball.F_y -= (ball.y - ball.r) * k;
         }
-        if (ball.y + ball.r - h > 0) {
-            ball.F_y -= (ball.y + ball.r - h) * k;
+        if (ball.y + ball.r - canvas.h > 0) {
+            ball.F_y -= (ball.y + ball.r - canvas.h) * k;
         }
     }
 
     for (let ball of balls) {
         const a_x = ball.F_x / ball.m;
         const a_y = ball.F_y / ball.m;
-        ball.v_x += dt * ball.a_x;
-        ball.v_y += dt * ball.a_y;
+        ball.v_x += dt * a_x;
+        ball.v_y += dt * a_y;
         ball.x += dt * ball.v_x;
         ball.y += dt * ball.v_y;
     }

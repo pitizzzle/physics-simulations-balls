@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Level 4 - Ball Deterministic Collisions (physics-simulations-balls)</title>
+        <link rel="stylesheet" href="assets/style.css">
+    </head>
+    <body>
+        <canvas></canvas>
+
+        <script src="assets/util.js"></script>
+        <script src="assets/vector.js"></script>
+        <script src="assets/canvas.js"></script>
+        <script src="assets/overlay.js"></script>
+        <script src="assets/timingManager.js"></script>
+        <script>
+
+            configureOverlay([
+                {
+                    buttonLabel: 'Without Glitch Prevention',
+                    isDefaultProgram: true,
+                    callback_setup: function () {
+
+                        const defaultBall = {
+                            x: canvas.w / 2,
+                            y: canvas.h / 2,
+                            v_x: 0,
+                            v_y: 0,
+                            r: 10,
+                            m: 1,
+                            color: 'red',
+                        };
+
+                        const balls = [
+                            {
+                                ...defaultBall,
+                                x: 30,
+                                y: canvas.h / 2,
+                                v_x: 8,
+                                color: '#E91E63',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 61,
+                                y: canvas.h / 2,
+                                color: '#009688',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 44,
+                                y: canvas.h / 2 - 11,
+                                color: '#FF9800',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 44,
+                                y: canvas.h / 2 + 11,
+                                color: '#2196F3',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 27,
+                                y: canvas.h / 2,
+                                color: '#FFC107',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 10,
+                                y: canvas.h / 2 - 11,
+                                color: '#333333',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 10,
+                                y: canvas.h / 2 + 11,
+                                color: '#00BCD4',
+                            },
+                        ];
+
+                        configureTimingManager({
+
+                            callback_simulateOneStep: function (dt) {
+
+                                for (let ball of balls) {
+                                    ball.x += dt * ball.v_x;
+                                    ball.y += dt * ball.v_y;
+                                }
+
+                                util.forEachPair(balls, (i, j) => {
+
+                                    const m_i = [i.x, i.y];
+                                    const m_j = [j.x, j.y];
+
+                                    const d = Vector.subtract(m_j, m_i);
+
+                                    if (Vector.norm(d) < i.r + j.r) {
+
+                                        const v_i = [i.v_x, i.v_y];
+                                        const v_j = [j.v_x, j.v_y];
+
+                                        const s = Vector.normalize(d);
+
+                                        const v_is_value = Vector.dotProduct(s, v_i);
+                                        const v_js_value = Vector.dotProduct(s, v_j);
+
+                                        const v_is = Vector.scale(s, v_is_value);
+                                        const v_js = Vector.scale(s, v_js_value);
+
+                                        const v_it = Vector.subtract(v_i, v_is);
+                                        const v_jt = Vector.subtract(v_j, v_js);
+
+                                        const vˈ_is_value = (
+                                            v_is_value * (i.m - j.m) + 2 * j.m * v_js_value
+                                        ) / (
+                                                i.m + j.m
+                                            );
+                                        const vˈ_js_value = (
+                                            v_js_value * (j.m - i.m) + 2 * i.m * v_is_value
+                                        ) / (
+                                                i.m + j.m
+                                            );
+
+                                        const vˈ_is = Vector.scale(s, vˈ_is_value);
+                                        const vˈ_js = Vector.scale(s, vˈ_js_value);
+
+                                        const vˈ_it = v_it;
+                                        const vˈ_jt = v_jt;
+
+                                        const vˈ_i = Vector.add(vˈ_is, vˈ_it);
+                                        const vˈ_j = Vector.add(vˈ_js, vˈ_jt);
+
+                                        [i.v_x, i.v_y] = vˈ_i;
+                                        [j.v_x, j.v_y] = vˈ_j;
+                                    }
+                                });
+
+                                for (let ball of balls) {
+                                    if (ball.x < ball.r || canvas.w - ball.r < ball.x) {
+                                        ball.v_x *= -1;
+                                    }
+                                    if (ball.y < ball.r || canvas.h - ball.r < ball.y) {
+                                        ball.v_y *= -1;
+                                    }
+                                }
+                            },
+
+                            callback_renderFrame: function () {
+                                canvas.clear();
+                                for (let ball of balls) {
+                                    canvas.fillCircle(ball.x, ball.y, ball.r, ball.color);
+                                }
+                            },
+
+                            subSteps_perFrame: 1,  // usually, you would definetely increase this (!!) to detect collisions earlier. we only keep the precision low for demonstration purposes (to intensify the glitches)
+
+                        });
+                    },
+                },
+
+
+
+                {
+                    buttonLabel: 'With Glitch Prevention',
+                    isDefaultProgram: false,
+                    callback_setup: function () {
+
+                        const defaultBall = {
+                            x: canvas.w / 2,
+                            y: canvas.h / 2,
+                            v_x: 0,
+                            v_y: 0,
+                            r: 10,
+                            m: 1,
+                            color: 'red',
+                        };
+
+                        const balls = [
+                            {
+                                ...defaultBall,
+                                x: 30,
+                                y: canvas.h / 2,
+                                v_x: 8,
+                                color: '#E91E63',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 61,
+                                y: canvas.h / 2,
+                                color: '#009688',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 44,
+                                y: canvas.h / 2 - 11,
+                                color: '#FF9800',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 44,
+                                y: canvas.h / 2 + 11,
+                                color: '#2196F3',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 27,
+                                y: canvas.h / 2,
+                                color: '#FFC107',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 10,
+                                y: canvas.h / 2 - 11,
+                                color: '#333333',
+                            },
+                            {
+                                ...defaultBall,
+                                x: canvas.w - 50 - 10,
+                                y: canvas.h / 2 + 11,
+                                color: '#00BCD4',
+                            },
+                        ];
+
+                        configureTimingManager({
+
+                            callback_simulateOneStep: function (dt) {
+
+                                for (let ball of balls) {
+                                    ball.x += dt * ball.v_x;
+                                    ball.y += dt * ball.v_y;
+                                }
+
+                                util.forEachPair(balls, (i, j) => {
+
+                                    const m_i = [i.x, i.y];
+                                    const m_j = [j.x, j.y];
+
+                                    const d = Vector.subtract(m_j, m_i);
+
+                                    const s = Vector.normalize(d);
+
+                                    const v_i = [i.v_x, i.v_y];
+                                    const v_j = [j.v_x, j.v_y];
+
+                                    const v_is_value = Vector.dotProduct(s, v_i);
+                                    const v_js_value = Vector.dotProduct(s, v_j);
+
+                                    if (
+                                        (Vector.norm(d) < i.r + j.r) &&
+                                        (v_is_value > v_js_value)
+                                    ) {
+
+                                        const v_is = Vector.scale(s, v_is_value);
+                                        const v_js = Vector.scale(s, v_js_value);
+
+                                        const v_it = Vector.subtract(v_i, v_is);
+                                        const v_jt = Vector.subtract(v_j, v_js);
+
+                                        const vˈ_is_value = (
+                                            v_is_value * (i.m - j.m) + 2 * j.m * v_js_value
+                                        ) / (
+                                                i.m + j.m
+                                            );
+                                        const vˈ_js_value = (
+                                            v_js_value * (j.m - i.m) + 2 * i.m * v_is_value
+                                        ) / (
+                                                i.m + j.m
+                                            );
+
+                                        const vˈ_is = Vector.scale(s, vˈ_is_value);
+                                        const vˈ_js = Vector.scale(s, vˈ_js_value);
+
+                                        const vˈ_it = v_it;
+                                        const vˈ_jt = v_jt;
+
+                                        const vˈ_i = Vector.add(vˈ_is, vˈ_it);
+                                        const vˈ_j = Vector.add(vˈ_js, vˈ_jt);
+
+                                        [i.v_x, i.v_y] = vˈ_i;
+                                        [j.v_x, j.v_y] = vˈ_j;
+                                    }
+                                });
+
+                                for (let ball of balls) {
+                                    if (
+                                        ball.x < ball.r && ball.v_x < 0 ||
+                                        canvas.w - ball.r < ball.x && ball.v_x > 0
+                                    ) {
+                                        ball.v_x *= -1;
+                                    }
+                                    if (
+                                        ball.y < ball.r && ball.v_y < 0 ||
+                                        canvas.h - ball.r < ball.y && ball.v_y > 0
+                                    ) {
+                                        ball.v_y *= -1;
+                                    }
+                                }
+                            },
+
+                            callback_renderFrame: function () {
+                                canvas.clear();
+                                for (let ball of balls) {
+                                    canvas.fillCircle(ball.x, ball.y, ball.r, ball.color);
+                                }
+                            },
+
+                            subSteps_perFrame: 1,  // the same as the other program to yield comparable results
+
+                        });
+                    },
+                },
+            ]);
+
+        </script>
+    </body>
+</html>
