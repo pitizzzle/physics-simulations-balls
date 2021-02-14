@@ -25,3 +25,4 @@ Understand the concepts, equations and code needed for simulating the movement a
 ### technical contribution
 + The Visual Studio Code Extension [`Markdown Preview Enhanced`](https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced) was used for rendering the Markdown files to HTML (including the beautiful TeX math formulas 😇).
   - Steps: click the "Markdown Preview Enhanced" menu button > right-click somewhere on the preview > "HTML" > "HTML (cdn hosted)"
++ The diagrams were designed in [Figma](https://www.figma.com/), utilizing Fonts from LaTeX and KaTeX. You can find the design file at `img/simulate-ball-physics.fig`.
