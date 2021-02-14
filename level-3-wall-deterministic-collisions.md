@@ -160,7 +160,7 @@ function simulateOneStep(dt) {
 
 + Hint:
   - The problem of asymmetric collisions only applies to special scenarios, like the current one, where a force acts on the ball.
-  - In the next level, where we don't have any forces involved, we won't have the problem of asymmetric collisions with the simple update rule (only the problem of slight physical inaccuracy remains).
+  - In the next level, where we don't have any forces involved, we won't have the problem of asymmetric collisions when we use these simple time step equations instead of the ones with averaged velocity (only the problem of slight physical inaccuracy remains).
 
 <br>
 
