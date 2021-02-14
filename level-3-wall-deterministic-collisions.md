@@ -152,11 +152,11 @@ function simulateOneStep(dt) {
 + But this time, unlike in level 2, you will quickly notice a difference. The ball jumps lower with every bounce off the ground with the simple time step equations.
 + This simplified example illustrates that the problem is again caused by the circumstance that we assume the new velocity (that belongs to the state AFTER the time step) to be constant when updating the position of the ball. The collision is not symmetric, the ball approaches the ground with <img src="https://latex.codecogs.com/svg.latex?v%3D2" /><!--v=2--> but leaves it with only <img src="https://latex.codecogs.com/svg.latex?v%3D-1" /><!--v=-1-->.
 
-<div align="center"><img src="img/level-3-simplified-diagram-(1).jpg" width="500" alt="level-3-simplified-diagram-(1)" /></div>
+<div align="center"><img src="img/level-3-simplified-collision-process-(1).svg" width="500" alt="level-3-simplified-collision-process-(1)" /></div>
 
 + This is easily fixed by using the average velocity to update the position of the ball, because then the collision becomes symmetric, retracting with the same velocity it approached with.
 
-<div align="center"><img src="img/level-3-simplified-diagram-(2).jpg" width="440" alt="level-3-simplified-diagram-(2)" /></div>
+<div align="center"><img src="img/level-3-simplified-collision-process-(2).svg" width="500" alt="level-3-simplified-collision-process-(2)" /></div>
 
 + Hint:
   - The problem of asymmetric collisions only applies to special scenarios, like the current one, where a force acts on the ball.
