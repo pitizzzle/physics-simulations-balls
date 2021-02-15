@@ -56,8 +56,8 @@ $$
 
 $$
 \begin{gathered}
-\vec{m}_i = \begin{pmatrix}x_i\\ y_i\end{pmatrix} \hspace{16pt} \vec{m}_j = \begin{pmatrix}x_j\\ y_j\end{pmatrix} \\[14pt]
-\vec{d} = \vec{m}_{\hspace{.5pt}j} - \vec{m}_{\hspace{.5pt}i}\\[8pt]
+\vec{c}_i = \begin{pmatrix}x_i\\ y_i\end{pmatrix} \hspace{16pt} \vec{c}_j = \begin{pmatrix}x_j\\ y_j\end{pmatrix} \\[14pt]
+\vec{d} = \vec{c}_{\hspace{.5pt}j} - \vec{c}_{\hspace{.5pt}i}\\[8pt]
 \text{collision condition:\hspace{12pt}} |\,\vec{d}\:| < r_i + r_j\\[16pt]
 \end{gathered}
 $$
@@ -107,6 +107,10 @@ $$
 $$
 
 $$
+\text{\small\color{Gray} (new velocity)}
+$$
+
+$$
 \begin{aligned}
 \begin{pmatrix}v'_{x,i}\\ v'_{y,i}\end{pmatrix} = \vec{v}\,'_{\!i} \hspace{16pt} \begin{pmatrix}v'_{x,j}\\ v'_{y,j}\end{pmatrix} = \vec{v}\,'_{\!j}\\[20pt]
 \end{aligned}
@@ -116,6 +120,10 @@ $$
 
 $$
 \text{--------- ball-wall collisions ---------}
+$$
+
+$$
+\text{\small\color{Gray} (new velocity ...)}
 $$
 
 $$
@@ -186,10 +194,10 @@ function simulateOneStep(dt) {
 
     forEachPair(balls, (i, j) => {
 
-        const m_i = [i.x, i.y];
-        const m_j = [j.x, j.y];
+        const c_i = [i.x, i.y];
+        const c_j = [j.x, j.y];
 
-        const d = Vector.subtract(m_j, m_i);
+        const d = Vector.subtract(c_j, c_i);
 
         if (Vector.norm(d) < i.r + j.r) {
 
@@ -303,8 +311,8 @@ $$
 
 $$
 \begin{gathered}
-\vec{m}_i = \begin{pmatrix}x_i\\ y_i\end{pmatrix} \hspace{16pt} \vec{m}_j = \begin{pmatrix}x_j\\ y_j\end{pmatrix} \\[14pt]
-\vec{d} = \vec{m}_{\hspace{.5pt}j} - \vec{m}_{\hspace{.5pt}i}\\[8pt]
+\vec{c}_i = \begin{pmatrix}x_i\\ y_i\end{pmatrix} \hspace{16pt} \vec{c}_j = \begin{pmatrix}x_j\\ y_j\end{pmatrix} \\[14pt]
+\vec{d} = \vec{c}_{\hspace{.5pt}j} - \vec{c}_{\hspace{.5pt}i}\\[8pt]
 \vec{s} = \frac{1}{|\,\vec{d}\:|} \cdot \vec{d}
 \end{gathered}
 $$
@@ -319,7 +327,8 @@ $$
 $$
 \begin{gathered}
 \text{collision condition:\hspace{12pt}} |\,\vec{d}\:| < r_i + r_j \quad\wedge\quad v_{i,s} > v_{j,s}\\[20pt]
-\end{gathered}
+\end{gathered}\\[-10pt]
+...\\[24pt]
 $$
 
 $$
@@ -368,10 +377,10 @@ function simulateOneStep(dt) {
     
     forEachPair(balls, (i, j) => {
 
-        const m_i = [i.x, i.y];
-        const m_j = [j.x, j.y];
+        const c_i = [i.x, i.y];
+        const c_j = [j.x, j.y];
 
-        const d = Vector.subtract(m_j, m_i);
+        const d = Vector.subtract(c_j, c_i);
 
         const s = Vector.normalize(d);
 

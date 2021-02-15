@@ -20,6 +20,10 @@ $$
 $$
 
 $$
+\text{\small\color{Gray} (new position)}
+$$
+
+$$
 \begin{aligned}
 x'&= x + dx  &  &\leftarrow  &  dx&= dt \cdot v_x\\
 y'&= y + dy  &  &\leftarrow  &  dy&= dt \cdot v_y

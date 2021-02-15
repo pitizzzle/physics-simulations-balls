@@ -33,8 +33,8 @@ $$
 
 $$
 \begin{aligned}
-F_x &= 0\\[8pt]
-F_y &= m \cdot g\\[8pt]
+F'_x &= 0\\[8pt]
+F'_y &= m \cdot g\\[8pt]
 \end{aligned}
 $$
 
@@ -44,8 +44,8 @@ $$
 
 $$
 \begin{aligned}
-a_x &= \frac{F_x}{m}\\[8pt]
-a_y &= \frac{F_y}{m}\\[8pt]
+a'_x &= \frac{F'_x}{m}\\[8pt]
+a'_y &= \frac{F'_y}{m}\\[8pt]
 \end{aligned}
 $$
 
@@ -55,8 +55,8 @@ $$
 
 $$
 \begin{aligned}
-v'_x &= v_x + dv_x  &  &\leftarrow  &  dv_x &= dt \cdot a_x\\
-v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a_y\\[8pt]
+v'_x &= v_x + dv_x  &  &\leftarrow  &  dv_x &= dt \cdot a'_x\\
+v'_y &= v_y + dv_y  &  &\leftarrow  &  dv_y &= dt \cdot a'_y\\[8pt]
 \end{aligned}
 $$
 

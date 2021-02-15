@@ -89,10 +89,10 @@
 
                                 util.forEachPair(balls, (i, j) => {
 
-                                    const m_i = [i.x, i.y];
-                                    const m_j = [j.x, j.y];
+                                    const c_i = [i.x, i.y];
+                                    const c_j = [j.x, j.y];
 
-                                    const d = Vector.subtract(m_j, m_i);
+                                    const d = Vector.subtract(c_j, c_i);
 
                                     if (Vector.norm(d) < i.r + j.r) {
 
@@ -232,10 +232,10 @@
 
                                 util.forEachPair(balls, (i, j) => {
 
-                                    const m_i = [i.x, i.y];
-                                    const m_j = [j.x, j.y];
+                                    const c_i = [i.x, i.y];
+                                    const c_j = [j.x, j.y];
 
-                                    const d = Vector.subtract(m_j, m_i);
+                                    const d = Vector.subtract(c_j, c_i);
 
                                     const s = Vector.normalize(d);
 
