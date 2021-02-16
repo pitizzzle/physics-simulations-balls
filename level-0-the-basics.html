@@ -293,9 +293,10 @@ v(t) &amp;= g \cdot t
 <p>Because of these two approximations, our simulations are not 100% accurate. But they&apos;re pretty close. And the smaller the time steps, the more accurate the approximation.</p>
 </li>
 <li>
-<p>To get the time steps really small, you will often want to have more than one time step per frame, because your render frame rate is typically only 60Hz or lower.</p>
+<p>To get the time steps really small, you will want to have more than 1 time step per frame, because your render frame rate is typically only 60Hz or even lower (this is a pretty low resolution for a good simulation).</p>
 <ul>
-<li>In our code examples we use a fixed number of <strong>sub-steps</strong> per frame, eg. 20 sub-steps per frame.</li>
+<li>So we perform multiple <strong>sub-steps</strong> per frame. A technique sometimes also called <strong>subsampling</strong>.</li>
+<li>In our code examples the number of sub-steps per frame is fixed, eg. 20 sub-steps per frame.</li>
 </ul>
 </li>
 <li>
